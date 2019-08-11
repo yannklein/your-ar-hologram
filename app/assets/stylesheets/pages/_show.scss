@@ -1,0 +1,128 @@
+.hologram-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 72px 20px;
+  img {
+    margin: 0px 36px;
+  }
+  h1 {
+    font-size: 64px;
+  }
+  p {
+    margin: 0;
+  }
+}
+
+.hologram-info {
+  padding: 36px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 4px 4px 8px rgba(0,0,0,0.1);
+  img {
+    margin-bottom: 10px;
+  }
+  h3 {
+    color: #37C9FF;
+    font-size: 24px;
+  }
+}
+
+#hologram-qrcode {
+  width: 50%;
+  padding-right: 30px;
+}
+
+.hologram-description {
+  flex-grow: 1;
+  img {
+    height: 20vw;
+    width: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+    background-color: black;
+    opacity: 0.5;
+  }
+}
+
+.hologram-demo {
+  margin: 56px 0;
+  h2{
+    text-align: center;
+    margin: 20px 0;
+  }
+  canvas {
+    padding: 36px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 4px 4px 8px rgba(0,0,0,0.1);
+    width: 100%;
+    height: 400px;
+  }
+}
+
+@media (max-width: 992px) {
+  .hologram-title {
+    padding: 48px 20px;
+    h1 {
+      font-size: 40px;
+    }
+  }
+  p {
+    font-size: 16px;
+  }
+}
+@media (max-width: 768px) {
+  .hologram-title{
+    padding: 36px 20px;
+    h1 {
+      font-size: 32px;
+    }
+    img {
+      margin: 0;
+    }
+  }
+  .hologram-description {
+    h3 {
+      font-size: 16px;
+    }
+  }
+  p {
+    font-size: 14px;
+  }
+}
+@media (max-width: 576px) {
+  .hologram-title {
+    padding: 36px 0px;
+    h1 {
+      font-size: 24px;
+    }
+    img {
+      margin: 0;
+      width: 80px;
+    }
+  }
+  .hologram-info {
+    display: block;
+  }
+  #hologram-qrcode {
+    width: 100%;
+    padding: 10px;
+  }
+  .hologram-description {
+    img {
+      display: none;
+    }
+    h3 {
+      font-size: 16px;
+    }
+  }
+  p {
+    font-size: 12px;
+  }
+  .hologram-demo {
+    display: none;
+  }
+}

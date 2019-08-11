@@ -1,0 +1,16 @@
+<div class="cards-hologram">
+  <% @holograms.each do |hologram| %>
+    <%= link_to(hologram_path(hologram)) do %>
+      <div class="card-hologram">
+        <div class="card-hologram-title">
+          <h2><%= hologram.title %></h2>
+          <p><em>From <%= hologram.user.nickname %></em></p>
+        </div>
+        <%= image_tag hologram.picture, alt: hologram.title%>
+        <div class="card-hologram-description">
+          <p> <%= hologram.description %></p>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,32 @@
+.card-hologram {
+  padding: 16px;
+  border-radius: 4px;
+  box-shadow: 4px 4px 8px rgba(0,0,0,0.1);
+  background-color: white;
+  img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: 50% 50%;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.1);
+  }
+  h2 {
+    font-size: 24px;
+  }
+  p {
+    font-size: 16px;
+  }
+}
+
+.card-hologram-title p {
+  font-weight: 24px;
+}
+
+.card-hologram-description {
+  display: flex;
+  align-items: center;
+  height: 80px;
+  p {
+    margin:0;
+  }
+}

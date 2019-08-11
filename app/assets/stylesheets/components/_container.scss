@@ -1,0 +1,20 @@
+.container-hologram {
+  margin: 0 auto;
+  width: 800px;
+}
+
+@media (max-width: 992px) {
+  .container-hologram {
+    width: 600px;
+  }
+}
+@media (max-width: 768px) {
+  .container-hologram {
+    width: 500px;
+  }
+}
+@media (max-width: 576px) {
+  .container-hologram {
+    width: 300px;
+  }
+}

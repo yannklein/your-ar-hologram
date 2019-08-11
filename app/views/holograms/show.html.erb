@@ -1,0 +1,22 @@
+<div class="container-hologram">
+  <div class="hologram-title">
+    <div class="hologram-title-text">
+      <h1><%= @hologram.title %></h1>
+      <p>Created on <%= @hologram.created_at.strftime('%A, %d %B %Y') %></p>
+    </div>
+    <%= image_tag @hologram.user.picture, alt: @hologram.user.nickname , class: 'avatar-bordered' %>
+  </div>
+  <div class="hologram-info">
+    <%= image_tag @hologram.qrcode, alt: 'qrocde', id: "hologram-qrcode" %>
+    <div class="hologram-description">
+      <%= image_tag @hologram.picture, alt: 'hologram picture' %>
+      <h3>About this hologram </h3>
+      <p><%= @hologram.description %></p>
+    </div>
+  </div>
+  <div class="hologram-demo">
+    <h2>Try it 🎥</h2>
+    <canvas class="live-hologram">
+    </canvas>
+  </div>
+</div>
