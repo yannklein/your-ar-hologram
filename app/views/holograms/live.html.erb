@@ -1,0 +1,30 @@
+<div class="live-hologram" style='margin : 0px; overflow: hidden; font-family: Monospace;'>
+</div>
+<script>
+  window.holoVideo = '<%= @hologram.video %>';
+  window.holoQRPic = '<%= "#{@hologram.qrcode}.png" %>';
+  window.holoQRPatt = '<%= "#{@hologram.qrcode}.patt" %>';
+</script>
+<script id="vertexShader" type="x-shader/x-vertex">
+  varying vec2 vUv;
+
+  void main()
+  {
+    vUv = uv;
+    vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+    gl_Position = projectionMatrix * mvPosition;
+  }
+</script>
+<script id="fragmentShader" type="x-shader/x-fragment">
+  uniform sampler2D texture;
+  uniform vec3 color;
+
+  varying vec2 vUv;
+
+  void main()
+  {
+    vec3 tColor = texture2D( texture, vUv ).rgb;
+    float a = (length(tColor - color) - 0.6) * 100.0;
+    gl_FragColor = vec4(tColor, a);
+  }
+</script>

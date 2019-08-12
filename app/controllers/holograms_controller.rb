@@ -9,6 +9,10 @@ class HologramsController < ApplicationController
     @hologram = Hologram.find(params['id'])
   end
 
+  def live
+    @hologram = Hologram.find(params['id'])
+  end
+
   def new
   end
 

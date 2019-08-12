@@ -67,6 +67,9 @@ module.exports = function(api) {
           async: false
         }
       ]
-    ].filter(Boolean)
+    ].filter(Boolean),
+    ignore: [
+      "./app/javascript/vendor/ar.js",
+    ]
   }
 }

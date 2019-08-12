@@ -7,7 +7,7 @@
     <%= image_tag @hologram.user.picture, alt: @hologram.user.nickname , class: 'avatar-bordered' %>
   </div>
   <div class="hologram-info">
-    <%= image_tag @hologram.qrcode, alt: 'qrocde', id: "hologram-qrcode" %>
+    <%= image_tag "#{@hologram.qrcode}.png", alt: 'qrocde', id: "hologram-qrcode" %>
     <div class="hologram-description">
       <%= image_tag @hologram.picture, alt: 'hologram picture' %>
       <h3>About this hologram </h3>
@@ -16,7 +16,13 @@
   </div>
   <div class="hologram-demo">
     <h2>Try it 🎥</h2>
-    <canvas class="live-hologram">
-    </canvas>
+    <p>Scan the QR code above with your smartphone, enter the webpage that pops-up and point the virtual QR code card below. (grab the virtual QR code to rotate it)</p>
+    <div class="digital-qr-frame">
+      <div class="digital-qr">
+      </div>
+    </div>
   </div>
 </div>
+<script>
+  window.qrcode = '<%= "#{@hologram.qrcode}.png" %>';
+</script>
