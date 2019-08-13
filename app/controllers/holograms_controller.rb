@@ -14,9 +14,12 @@ class HologramsController < ApplicationController
   end
 
   def new
+    @restaurant = Restaurant.new
   end
 
   def create
+    @restaurant = Restaurant.new(params[:restaurant])
+    @restaurant.save
   end
 
   def edit

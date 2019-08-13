@@ -11,7 +11,7 @@ User.create!(email: 'sean@ronan.com', password: 'aaaaaa', name: 'Sean Ronan', ni
 
 Hologram.create(title: 'Happy Xmas!',
                 description: 'Yann is wishing you happy Xmas',
-                qrcode: 'https://raw.githubusercontent.com/Magicstickr/magicstickr.github.io/master/noel2018/sophie/marker/marker_holo.png',
+                qrcode: 'https://raw.githubusercontent.com/Magicstickr/magicstickr.github.io/master/noel2018/sophie/marker/marker_holo',
                 picture: 'https://pbs.twimg.com/media/DRvG2jUWAAA7f38?format=jpg&name=small',
                 video:'https://raw.githubusercontent.com/Magicstickr/magicstickr.github.io/master/noel2018/sophie/content/yann.mp4',
                 user_id: 1
@@ -19,7 +19,7 @@ Hologram.create(title: 'Happy Xmas!',
 
 Hologram.create(title: 'I\'m getting crazy!',
                 description: 'Sean is really getting out of the line, closer to the stars',
-                qrcode: 'https://raw.githubusercontent.com/Magicstickr/magicstickr.github.io/master/holo-base/marker/marker_holo.png',
+                qrcode: 'https://raw.githubusercontent.com/Magicstickr/magicstickr.github.io/master/holo-base/marker/marker_holo',
                 picture: 'https://dbl4hsd8tfgwq.cloudfront.net/telusproduction/5c06638f5b5c2_i_240x240.jpg',
                 video:'https://raw.githubusercontent.com/Magicstickr/magicstickr.github.io/master/holo-base/content/yann.mp4',
                 user_id: 2
