@@ -6,7 +6,7 @@
           <h2><%= hologram.title %></h2>
           <p><em>From <%= hologram.user.nickname %></em></p>
         </div>
-        <%= image_tag hologram.picture, alt: hologram.title%>
+        <%= cl_image_tag hologram.picture %>
         <div class="card-hologram-description">
           <p> <%= hologram.description %></p>
         </div>

@@ -15,6 +15,7 @@ class HologramsController < ApplicationController
 
   def new
     @hologram = Hologram.new
+    @new_id = Hologram.last.id + 1
   end
 
   def create

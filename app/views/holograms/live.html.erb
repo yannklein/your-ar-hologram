@@ -1,9 +1,10 @@
 <div class="live-hologram" style='margin : 0px; overflow: hidden; font-family: Monospace;'>
 </div>
 <script>
-  window.holoVideo = '<%= @hologram.video %>';
-  window.holoQRPic = '<%= "#{@hologram.qrcode}.png" %>';
-  window.holoQRPatt = '<%= "#{@hologram.qrcode}.patt" %>';
+  const baseURL = "https://res.cloudinary.com/yanninthesky/";
+  window.holoVideo =  `${baseURL}<%= "#{@hologram.video.identifier}" %>`;
+  window.holoQRPic =  `${baseURL}<%= "#{@hologram.qrcode.identifier}" %>`;
+  window.holoQRPatt = `${baseURL}<%= "#{@hologram.marker.identifier}" %>`;
 </script>
 <script id="vertexShader" type="x-shader/x-vertex">
   varying vec2 vUv;
