@@ -2,6 +2,7 @@
   <h2 class="new-form-title">Upload a video 🎬</h2>
   <%= render 'video_form' %>
 </div>
+<p><%= @my_live_url  %></p>
 <script>
   window.QRForPattern = '<%= @qrcode_png.squish %>'
 </script>
