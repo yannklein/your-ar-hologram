@@ -7,9 +7,9 @@
     <%= image_tag @hologram.user.picture, alt: @hologram.user.nickname , class: 'avatar-bordered' %>
   </div>
   <div class="hologram-info">
-    <%= cl_image_tag @hologram.qrcode, id: "hologram-qrcode" %>
+    <%= image_tag @marker_png, id: "hologram-qrcode" %>
     <div class="hologram-description">
-      <%= cl_image_tag @hologram.picture %>
+      <%= cl_image_tag @hologram.video, :format=>"gif", :video_sampling=>"1.1s", :delay=>"100", :effect=>"loop", :resource_type=>"video"%>
       <h3>About this hologram </h3>
       <p><%= @hologram.description %></p>
     </div>
@@ -24,5 +24,5 @@
   </div>
 </div>
 <script>
-  window.qrcode = '<%= "https://res.cloudinary.com/yanninthesky/#{@hologram.qrcode.identifier}" %>';
+  window.qrcode = `<%= @marker_png %>`;
 </script>

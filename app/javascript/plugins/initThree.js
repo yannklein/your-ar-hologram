@@ -61,7 +61,7 @@ const welcomeMessage = () => {
   }])
 }
 
-const initThree = (holoVideo, qrcodeImg, qrcodePatt) => {
+const initThree = (holoVideo, qrcodePatt) => {
   //Error if not WebGL compatible
   // if ( WEBGL.isWebGLAvailable() === false ) {
   //     document.body.appendChild( WEBGL.getWebGLErrorMessage() );

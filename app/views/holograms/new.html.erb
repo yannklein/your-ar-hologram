@@ -1,2 +1,9 @@
 <h2>Upload a video</h2>
 <%= render 'video_form' %>
+
+<p> And the qrcode: <%= image_tag(@qrcode_png) %></p>
+<p> And the marker: <%= image_tag(@marker_png) %></p>
+
+<script>
+  window.QRForPattern = '<%= @qrcode_png.squish %>'
+</script>

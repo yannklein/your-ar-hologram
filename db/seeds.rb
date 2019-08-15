@@ -18,7 +18,6 @@ User.create!(email: 'sean@ronan.com', password: 'aaaaaa', name: 'Sean Ronan', ni
 #                 )
 
 url_video = "https://res.cloudinary.com/yanninthesky/video/upload/v1565704830/iuhcsb1jwpuvao0fujiu.mp4"
-url_photo = "https://res.cloudinary.com/yanninthesky/video/upload/v1565704830/iuhcsb1jwpuvao0fujiu.jpg"
 url_qrcode = "https://res.cloudinary.com/yanninthesky/image/upload/v1565705323/marker_holo_wc4hgg.png"
 url_marker = "https://res.cloudinary.com/yanninthesky/raw/upload/v1565706996/marker_holo_okeykz.patt"
 
@@ -28,7 +27,6 @@ sean = Hologram.new(title: 'I\'m getting crazy!',
                 )
 
 sean.remote_video_url = url_video
-sean.remote_picture_url = url_photo
 sean.remote_qrcode_url = url_qrcode
 sean.remote_marker_url = url_marker
 sean.save

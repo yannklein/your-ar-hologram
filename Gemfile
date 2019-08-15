@@ -18,6 +18,11 @@ gem 'webpacker'
 gem 'cloudinary', '~> 1.9.1'
 gem 'carrierwave', '~> 1.2'
 
+gem 'barby',  '~> 0.6.2'
+gem 'rqrcode','~> 0.4.2'
+gem 'chunky_png'
+gem 'rmagick'
+
 group :development do
   gem 'web-console', '>= 3.3.0'
 end

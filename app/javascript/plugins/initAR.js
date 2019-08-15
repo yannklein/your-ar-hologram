@@ -62,7 +62,7 @@ const initARJS = (scene, camera, onRenderFcts, renderer, qrcodePatt) => {
     //type: 'barcode',
     //barcodeValue: 'https://magicstickr.github.io/video-base/index.html',
     type : 'pattern',
-    patternUrl : qrcodePatt
+    patternUrl: qrcodePatt
   });
 
   // build a smoothedControls

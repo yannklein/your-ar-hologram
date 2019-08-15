@@ -50,7 +50,8 @@ const initDigitalQRcode = (qrcode) => {
 
   // add the virtual qrcode
   const qrGeometry = new THREE.PlaneGeometry(5,5);
-  const qrTexture = new THREE.TextureLoader().load(qrcode);
+  // const qrTexture = new THREE.TextureLoader().load(qrcode);
+  const qrTexture = new THREE.ImageUtils.loadTexture( qrcode );
   const qrMaterial = new THREE.MeshLambertMaterial({ map: qrTexture });
 
   const qrcodeTile = new THREE.Mesh(qrGeometry, qrMaterial);

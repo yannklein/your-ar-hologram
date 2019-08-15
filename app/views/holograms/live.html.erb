@@ -3,8 +3,7 @@
 <script>
   const baseURL = "https://res.cloudinary.com/yanninthesky/";
   window.holoVideo =  `${baseURL}<%= "#{@hologram.video.identifier}" %>`;
-  window.holoQRPic =  `${baseURL}<%= "#{@hologram.qrcode.identifier}" %>`;
-  window.holoQRPatt = `${baseURL}<%= "#{@hologram.marker.identifier}" %>`;
+  window.holoQRPatt = `<%= "#{root_url}holograms/#{@hologram.id}/pattern.txt" %>`;
 </script>
 <script id="vertexShader" type="x-shader/x-vertex">
   varying vec2 vUv;
