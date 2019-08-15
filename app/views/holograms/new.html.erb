@@ -3,6 +3,7 @@
   <%= render 'video_form' %>
 </div>
 <p><%= @my_live_url  %></p>
+<%= image_tag @marker_png, id: "hologram-qrcode" %>
 <script>
   window.QRForPattern = '<%= @qrcode_png.squish %>'
 </script>
