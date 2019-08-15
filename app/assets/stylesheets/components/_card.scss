@@ -23,10 +23,13 @@
 }
 
 .card-hologram-description {
-  display: flex;
-  align-items: center;
-  height: 80px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
   p {
     margin:0;
+  }
+  span {
+    color: $light-blue;
   }
 }
