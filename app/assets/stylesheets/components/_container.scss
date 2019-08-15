@@ -1,6 +1,9 @@
 .container-hologram {
   margin: 0 auto;
   width: 800px;
+  &.small {
+    width: 400px;
+  }
 }
 
 @media (max-width: 992px) {
@@ -11,6 +14,9 @@
 @media (max-width: 768px) {
   .container-hologram {
     width: 500px;
+    &.small {
+      width: 300px;
+    }
   }
 }
 @media (max-width: 576px) {

@@ -23,7 +23,7 @@ class HologramsController < ApplicationController
 
   def new
     @hologram = Hologram.new
-    @new_id = Hologram.last.id + 1
+    @new_id = Hologram.last ? Hologram.last.id + 1 : 1
     @hologram.qrcode = create_raw_qrcode(@new_id)
     @qrcode_png = to_png(@hologram.qrcode)
     @marker_png = create_marker(@hologram.qrcode)

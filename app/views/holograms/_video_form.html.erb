@@ -1,9 +1,9 @@
-<%= simple_form_for(@hologram) do |f| %>
+<%= simple_form_for @hologram, html: {class: 'new-form-content'} do |f| %>
   <%= f.error_notification %>
-  <%= f.input :title %>
-  <%= f.input :description %>
-  <%= f.input :video %>
+  <%= f.input :title, label: 'Choose a great title:'%>
+  <%= f.input :description, label: 'Take a breath and go for a cool description:' %>
+  <%= f.input :video, label: 'Now upload your video 😎👇'%>
   <%= f.input :marker, as: :hidden %>
   <%= f.input :qrcode, as: :hidden, value: @hologram.qrcode %>
-  <%= f.button :submit %>
+  <%= f.button :submit, value: 'Brew your hologram', class: 'btn btn-primary' %>
 <% end %>
