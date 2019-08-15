@@ -57,6 +57,7 @@ class HologramsController < ApplicationController
   def create_raw_qrcode(new_holo_id)
     # Produce the hologram live url
     live_url = "https://#{root_url}/holograms/#{new_holo_id}/live"
+    puts live_url
     # Create the QR code PGN image
     barcode = Barby::QrCode.new(live_url, level: :q, size: 5)
     Base64.encode64(barcode.to_png(xdim: 5))
