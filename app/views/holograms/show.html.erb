@@ -1,11 +1,19 @@
 <div class="container-hologram">
-  <div class="hologram-title">
-    <div class="hologram-title-text">
-      <h1><%= @hologram.title %></h1>
-      <p>Created on <%= @hologram.created_at.strftime('%A, %d %B %Y') %></p>
+  <div class="hologram-header">
+    <div class="hologram-title">
+      <div class="hologram-title-text">
+        <h1><%= @hologram.title %></h1>
+        <p>Created on <%= @hologram.created_at.strftime('%A, %d %B %Y') %></p>
+      </div>
+      <%= link_to(user_path(@hologram.user.nickname)) do %>
+      <%= cl_image_tag @hologram.user.picture, alt: @hologram.user.nickname , class: 'avatar-bordered' %>
+      <% end %>
     </div>
-    <%= link_to(user_path(@hologram.user.nickname)) do %>
-    <%= cl_image_tag @hologram.user.picture, alt: @hologram.user.nickname , class: 'avatar-bordered' %>
+    <% if current_user == @hologram.user %>
+      <div class="hologram-actions">
+        <%= link_to "Edit", edit_hologram_path(@hologram), class: 'btn btn-primary'%>
+        <%= link_to "Remove", hologram_path(@hologram), method: :delete, data: { confirm: "Wanna get rid of this hologram?"}, class: 'btn btn-danger'%>
+      </div>
     <% end %>
   </div>
   <div class="hologram-info">

@@ -6,7 +6,7 @@ require 'barby/outputter/png_outputter'
 require 'RMagick'
 
 class HologramsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :pattern]
+  skip_before_action :authenticate_user!, only: [:index, :pattern, :live]
 
   def index
     @holograms = Hologram.all.order("created_at DESC")
@@ -44,7 +44,10 @@ class HologramsController < ApplicationController
     @hologram.update(hologram_params)
   end
 
-  def delete
+  def destroy
+    @hologram = Hologram.find(params[:id])
+    @hologram.destroy
+    redirect_to user_path(current_user.nickname)
   end
 
   def pattern

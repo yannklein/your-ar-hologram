@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   margin: 16px;
+  align-items: flex-start;
 }
 
 .user-cards-hologram {
@@ -11,6 +12,9 @@
   a {
     text-decoration: none;
     color: black;
+  }
+  img {
+    height: 120px;
   }
 }
 

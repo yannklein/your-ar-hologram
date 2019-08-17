@@ -11,8 +11,15 @@
 
   <div class="user-cards-hologram">
     <% @user.holograms.each do |hologram| %>
-      <%= link_to(hologram_path(hologram)) do %>
-        <div class="card-hologram">
+      <div class="card-hologram">
+        <% if current_user == @user %>
+          <%= link_to hologram_path(hologram), method: :delete, data: { confirm: "Wanna get rid of this hologram?" }  do %>
+            <div class="button-grey-circle button-delete">
+              <i class="fas fa-times-circle"></i>
+            </div>
+          <% end %>
+        <% end %>
+        <%= link_to(hologram_path(hologram)) do %>
           <div class="card-hologram-title">
             <h2><%= hologram.title %></h2>
             <p><em>From <%= hologram.user.nickname %></em></p>
@@ -25,8 +32,8 @@
               <p> <%= hologram.description %></p>
             <% end %>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 
