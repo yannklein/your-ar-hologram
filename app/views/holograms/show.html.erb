@@ -4,7 +4,9 @@
       <h1><%= @hologram.title %></h1>
       <p>Created on <%= @hologram.created_at.strftime('%A, %d %B %Y') %></p>
     </div>
+    <%= link_to(user_path(@hologram.user.nickname)) do %>
     <%= cl_image_tag @hologram.user.picture, alt: @hologram.user.nickname , class: 'avatar-bordered' %>
+    <% end %>
   </div>
   <div class="hologram-info">
     <%= image_tag @marker_png, id: "hologram-qrcode" %>

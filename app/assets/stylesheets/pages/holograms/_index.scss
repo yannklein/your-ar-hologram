@@ -1,0 +1,26 @@
+.cards-hologram {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 16px;
+  padding: 10px;
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+@media (max-width: 992px) {
+  .cards-hologram {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+@media (max-width: 768px) {
+  .cards-hologram {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 576px) {
+  .cards-hologram {
+    grid-template-columns: 1fr;
+  }
+}

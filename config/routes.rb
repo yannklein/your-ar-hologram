@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   resources :holograms
   get 'holograms/:id/live', to: 'holograms#live', as: :live
   get 'holograms/:id/pattern.:format' => 'holograms#pattern'
+
+  get ':user/', to: 'users#show', as: :user
 end

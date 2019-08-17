@@ -1,0 +1,42 @@
+<div class="user-profile-frame">
+  <div class="user-profile-card mobile">
+    <%= cl_image_tag @user.picture, alt: @user.nickname , class: 'avatar-bordered' %>
+    <h2><%= @user.nickname  %></h2>
+    <p>Known in real-life as <%= @user.name %></p>
+    <p>A proud hologramer 👓, since <%= @user.created_at.strftime('%A, %d %B %Y') %>.</p>
+    <% unless @user.bio.nil? %>
+      <p><em>"<%= @user.bio %>"</em></p>
+    <% end %>
+  </div>
+
+  <div class="user-cards-hologram">
+    <% @user.holograms.each do |hologram| %>
+      <%= link_to(hologram_path(hologram)) do %>
+        <div class="card-hologram">
+          <div class="card-hologram-title">
+            <h2><%= hologram.title %></h2>
+            <p><em>From <%= hologram.user.nickname %></em></p>
+          </div>
+          <%= cl_image_tag hologram.video, :format=>"jpg" %>
+          <div class="card-hologram-description">
+            <% if hologram.description.size >= 60 %>
+              <p> <%= hologram.description.first(60) %>... <span>Read more</span></p>
+            <% else %>
+              <p> <%= hologram.description %></p>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="user-profile-card laptop">
+    <%= cl_image_tag @user.picture, alt: @user.nickname , class: 'avatar-bordered' %>
+    <h2><%= @user.nickname  %></h2>
+    <p>Known in real-life as <strong><%= @user.name %></strong></p>
+    <p>A proud hologramer 👓, since <%= @user.created_at.strftime('%A, %d %B %Y') %>.</p>
+    <% unless @user.bio.nil? %>
+      <p><em>"<%= @user.bio %>"</em></p>
+    <% end %>
+  </div>
+</div>
