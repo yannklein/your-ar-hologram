@@ -10,10 +10,10 @@
         <div class="card-hologram-description">
           <% if hologram.description.size >= 60 %>
            <p> <%= hologram.description.first(60) %>...</p>
-           <p><span>Read more</span></p>
           <% else %>
             <p> <%= hologram.description %></p>
           <% end %>
+          <p><span>Read more</span></p>
         </div>
       </div>
     <% end %>
