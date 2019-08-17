@@ -29,17 +29,20 @@
 
 .card-hologram-title {
   height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   p {
     font-weight: 24px;
   }
 }
 
 .card-hologram-description {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
   height: 70px;
   margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   p {
     margin:0;
   }
