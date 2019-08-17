@@ -8,7 +8,11 @@
         </div>
         <%= cl_image_tag hologram.video, :format=>"jpg" %>
         <div class="card-hologram-description">
-          <p> <%= hologram.description.first(60) %> ... <span>Read more</span></p>
+          <% if hologram.description.size >= 60 %>
+           <p> <%= hologram.description.first(60) %>... <span>Read more</span></p>
+          <% else %>
+            <p> <%= hologram.description %></p>
+          <% end %>
         </div>
       </div>
     <% end %>
