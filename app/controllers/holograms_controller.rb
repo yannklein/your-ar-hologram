@@ -9,7 +9,7 @@ class HologramsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :pattern]
 
   def index
-    @holograms = Hologram.all
+    @holograms = Hologram.all.order("created_at DESC")
   end
 
   def show

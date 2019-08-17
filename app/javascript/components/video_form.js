@@ -5,8 +5,12 @@ const initVideoForm = () => {
   const progressBar80 = document.querySelector(".new-form-progress-80");
   const progressBar100 = document.querySelector(".new-form-progress-100");
 
-  document.addEventListener('fileuploadprogress', (event, data) => {
-    const progressPct = (Math.round((data.loaded * 100.0) / data.total));
+
+  // document.addEventListener('fileuploadprogress', (event, data) => {
+  //   const progressPct = (Math.round((data.loaded * 100.0) / data.total));
+  const progressMessaging = (progressPct) => {
+    console.log("Brewing2");
+    debugger
     if (progressPct >= 20) {
       progressBar20.style.display = 'flex';
       console.log("20%");
@@ -27,7 +31,16 @@ const initVideoForm = () => {
       progressBar100.style.display = 'flex';
       console.log("100%");
     }
+    progressPct += 5;
+  };
+
+  document.querySelector("form").addEventListener('submit', (event) => {
+    console.log("Brewing");
+    var progressPct = 0;
+    setInterval( progressMessaging, 1000);
   });
+//   });
+// }
 }
 
 export { initVideoForm };

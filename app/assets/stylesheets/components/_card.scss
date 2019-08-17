@@ -18,14 +18,19 @@
   }
 }
 
-.card-hologram-title p {
-  font-weight: 24px;
+.card-hologram-title {
+  height: 100px;
+  p {
+    font-weight: 24px;
+  }
 }
 
 .card-hologram-description {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
+  height: 70px;
+  margin-top: 16px;
   p {
     margin:0;
   }
