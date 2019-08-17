@@ -5,42 +5,19 @@ const initVideoForm = () => {
   const progressBar80 = document.querySelector(".new-form-progress-80");
   const progressBar100 = document.querySelector(".new-form-progress-100");
 
-
-  // document.addEventListener('fileuploadprogress', (event, data) => {
-  //   const progressPct = (Math.round((data.loaded * 100.0) / data.total));
-  const progressMessaging = (progressPct) => {
-    console.log("Brewing2");
-    debugger
-    if (progressPct >= 20) {
-      progressBar20.style.display = 'flex';
-      console.log("20%");
-    }
-    if (progressPct >= 40) {
-      progressBar40.style.display = 'flex';
-      console.log("40%");
-    }
-    if (progressPct >= 60) {
-      progressBar60.style.display = 'flex';
-      console.log("60%");
-    }
-    if (progressPct >= 80) {
-      progressBar80.style.display = 'flex';
-      console.log("80%");
-    }
-    if (progressPct >= 100) {
-      progressBar100.style.display = 'flex';
-      console.log("100%");
-    }
-    progressPct += 5;
+  const progressMessaging = (item) => {
+    item.style.display = 'flex';
   };
 
   document.querySelector("form").addEventListener('submit', (event) => {
-    console.log("Brewing");
-    var progressPct = 0;
-    setInterval( progressMessaging, 1000);
+    console.log("top2");
+    const interval = 4000;
+    setTimeout(progressMessaging, interval*1, progressBar20);
+    setTimeout(progressMessaging, interval*2, progressBar40);
+    setTimeout(progressMessaging, interval*3, progressBar60);
+    setTimeout(progressMessaging, interval*4, progressBar80);
+    setTimeout(progressMessaging, interval*5, progressBar100);
   });
-//   });
-// }
-}
+};
 
 export { initVideoForm };

@@ -1,28 +1,7 @@
 <div class="container-hologram small">
   <h2 class="new-form-title">Upload a video 🎬</h2>
   <%= render 'video_form' %>
-  <div class="new-form-progress list-group">
-    <div class="new-form-progress-20 list-group-item">
-      <p>Test the awesomeness of the video</p>
-      <p>Success ✅</p>
-    </div>
-    <div class="new-form-progress-40 list-group-item">
-      <p>Open the multi-dimensional portal</p>
-      <p>Success ✅</p>
-    </div>
-    <div class="new-form-progress-60 list-group-item">
-      <p>Chatty chat with our other dimension twin</p>
-      <p>Success ✅</p>
-    </div>
-    <div class="new-form-progress-80 list-group-item">
-      <p>Get the hologram from the multi-dim brewer</p>
-      <p>Success ✅</p>
-    </div>
-    <div class="new-form-progress-100 list-group-item">
-      <p>The hologram's ready! ☕️</p>
-      <p>Success ✅</p>
-    </div>
-  </div>
+  <%= render 'shared/progress_bar' %>
 </div>
 <script>
   window.QRForPattern = '<%= @qrcode_png.squish %>'
