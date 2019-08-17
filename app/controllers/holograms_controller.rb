@@ -37,11 +37,13 @@ class HologramsController < ApplicationController
   end
 
   def edit
+    @hologram = Hologram.find(params[:id])
   end
 
   def update
     @hologram = Hologram.find(params[:id])
     @hologram.update(hologram_params)
+    redirect_to hologram_path(@hologram)
   end
 
   def destroy

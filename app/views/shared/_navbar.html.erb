@@ -18,7 +18,7 @@
           <%= cl_image_tag current_user.picture, :format=>"jpg", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <%= link_to "My holograms", user_path(current_user.nickname), class: "dropdown-item" %>
-            <%= link_to "My profile", "#", class: "dropdown-item" %>
+            <%= link_to "My profile", edit_user_registration_path, class: "dropdown-item" %>
             <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
           </div>
         </li>
