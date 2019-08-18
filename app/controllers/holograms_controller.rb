@@ -39,7 +39,11 @@ class HologramsController < ApplicationController
     @hologram = Hologram.new(hologram_params)
     @hologram.user = current_user
     @hologram.save
-    redirect_to holograms_path
+    redirect_to color_pick_path
+  end
+
+  def color_pick
+    @hologram = Hologram.find(params[:id])
   end
 
   def edit

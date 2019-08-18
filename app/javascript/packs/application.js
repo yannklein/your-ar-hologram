@@ -3,6 +3,7 @@ import { initDigitalQRcode } from '../components/digital_qrcode';
 import { initThree } from '../plugins/initThree';
 import { initMarkerPatternCreator } from '../components/marker_pattern_creator';
 import { initVideoForm } from '../components/video_form';
+import { createPicker } from '../vendor/colorPicker';
 
 if (window.qrcode) {
   initDigitalQRcode(window.qrcode);
@@ -19,7 +20,14 @@ if (window.QRForPattern) {
 if(document.querySelector(".new-form-progress")) {
   initVideoForm();
 }
+if(document.querySelector(".close-welcome")) {
+  document.querySelector(".close-welcome").addEventListener("click", (event) => {
+    document.querySelector(".card-welcome").style.display = 'none';
+  });
+}
 
-document.querySelector(".close-welcome").addEventListener("click", (event) => {
-  document.querySelector(".card-welcome").style.display = 'none';
-});
+const img = document.querySelector('.picker-thumbnail img');
+const canvas = document.querySelector('#picker-cs');
+const result = document.querySelector('.picker-result');
+const preview = document.querySelector('.picker-preview');
+createPicker(img, canvas, result, preview);
