@@ -13,9 +13,6 @@
   h2 {
     font-size: 24px;
   }
-  h2.mobile {
-    display: none;
-  }
   p {
     font-size: 16px;
   }
@@ -79,6 +76,9 @@
       h2 {
         color: $light-blue;
         font-size: 24px;
+      }
+      h2.mobile {
+        display: none;
       }
       a {
         color: rgba(170,170,170,1);
