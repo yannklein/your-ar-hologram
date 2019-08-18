@@ -50,12 +50,17 @@
   }
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
   .user-cards-hologram {
     grid-template-columns: 1fr 1fr;
   }
 }
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
+  .user-cards-hologram {
+    img {
+      height: 160px;
+    }
+  }
   .user-profile-frame {
     display: block;
   }
@@ -64,7 +69,8 @@
   }
   .user-profile-card {
     &.mobile {
-      display: flex;
+      display: block;
+      text-align: center;
     }
     &.laptop {
       display: none;
