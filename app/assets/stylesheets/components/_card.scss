@@ -67,7 +67,6 @@
     height: 300px;
     object-fit: cover;
     object-position: 70% 50%;
-    filter: blur(0.2px);
   }
   .card-welcome-info {
     margin-left: 16px;
@@ -109,12 +108,14 @@
     img {
       height: 100px;
     }
-    .card-welcome-text {
-      h2.desktop {
-        display: none;
-      }
-      h2.mobile {
-        display: block;
+    .card-welcome-info {
+      .card-welcome-text {
+        h2.desktop {
+          display: none;
+        }
+        h2.mobile {
+          display: block;
+        }
       }
     }
     .button-light-blue {

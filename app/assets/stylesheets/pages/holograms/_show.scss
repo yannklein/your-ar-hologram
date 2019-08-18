@@ -1,35 +1,27 @@
 .hologram-header {
   padding: 72px 20px;
-  .hologram-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    img {
-      margin: 0px 36px;
-    }
-    h1 {
-      font-size: 64px;
-    }
-    p {
-      margin: 0;
-    }
-  }
+}
 
-  .hologram-actions {
-    display: grid;
-    margin-top: 16px;
-    grid-template-columns: 1fr 1fr 4fr;
-    grid-gap: 16px;
-
-    .btn-primary {
-      background-color: $light-blue;
-      border: none;
-    }
-    .btn-danger {
-      background-color: rgba(200,0,0,0.5);
-      border: none;
-    }
+.hologram-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  img {
+    margin: 0px 36px;
   }
+  h1 {
+    font-size: 48px;
+  }
+  p {
+    margin: 0;
+  }
+}
+
+.hologram-actions {
+  display: grid;
+  margin-top: 16px;
+  grid-template-columns: 1fr 1fr 4fr;
+  grid-gap: 16px;
 }
 
 .hologram-info {
@@ -67,7 +59,7 @@
 
 .hologram-demo {
   margin: 56px 0;
-  h2{
+  h2 {
     text-align: center;
     margin: 20px 0;
     color: $light-blue;
@@ -75,43 +67,51 @@
   p {
     text-align: center;
   }
-  .digital-qr-frame {
-    padding: 8px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 4px 4px 8px rgba(0,0,0,0.1);
-    width: 100%;
-    .digital-qr {
-      height: 400px;
-      cursor: grab;
-    }
-    .digital-qr:active {
-      cursor: grabbing;
-    }
-  }
+}
+.digital-qr-frame {
+  padding: 8px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 4px 4px 8px rgba(0,0,0,0.1);
+  width: 100%;
+}
+
+.digital-qr {
+  height: 400px;
+  cursor: grab;
+}
+
+.digital-qr:active {
+  cursor: grabbing;
 }
 
 @media (max-width: 992px) {
-  .hologram-title {
+  .hologram-header {
     padding: 48px 20px;
+  }
+  .hologram-title {
     h1 {
-      font-size: 40px;
+      font-size: 32px;
     }
   }
   p {
     font-size: 16px;
   }
 }
+
 @media (max-width: 768px) {
-  .hologram-title{
+  .hologram-header {
     padding: 36px 20px;
+  }
+  .hologram-title{
     h1 {
-      font-size: 32px;
+      font-size: 24px;
     }
     img {
       margin: 0;
     }
   }
+
   .hologram-description {
     h3 {
       font-size: 16px;
@@ -121,25 +121,34 @@
     font-size: 14px;
   }
 }
+
 @media (max-width: 576px) {
-  .hologram-title {
+  .hologram-header {
     padding: 36px 0px;
+  }
+  .hologram-title {
     h1 {
-      font-size: 24px;
+      font-size: 18px;
     }
     img {
       margin: 0;
       width: 80px;
       height: 80px;
     }
+    p {
+      font-size: 10px;
+    }
   }
+
   .hologram-info {
     display: block;
   }
+
   #hologram-qrcode {
     width: 100%;
     padding: 10px;
   }
+
   .hologram-description {
     img {
       display: none;
