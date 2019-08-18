@@ -12,6 +12,12 @@ class HologramsController < ApplicationController
     @holograms = Hologram.all.order("created_at DESC")
   end
 
+  def welcome
+    @holograms = Hologram.all.order("created_at DESC")
+    @first_visit = true
+    render :index
+  end
+
   def show
     @hologram = Hologram.find(params['id'])
     @marker_png = create_marker(@hologram.qrcode)

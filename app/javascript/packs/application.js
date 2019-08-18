@@ -19,3 +19,7 @@ if (window.QRForPattern) {
 if(document.querySelector(".new-form-progress")) {
   initVideoForm();
 }
+
+document.querySelector(".close-welcome").addEventListener("click", (event) => {
+  document.querySelector(".card-welcome").style.display = 'none';
+});
