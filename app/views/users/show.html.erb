@@ -14,7 +14,7 @@
       <div class="card-hologram">
         <% if current_user == @user %>
           <%= link_to hologram_path(hologram), method: :delete, data: { confirm: "Wanna get rid of this hologram?" }  do %>
-            <div class="button-grey-circle button-delete">
+            <div class="button-text-light-blue button-delete">
               <i class="fas fa-times-circle"></i>
             </div>
           <% end %>

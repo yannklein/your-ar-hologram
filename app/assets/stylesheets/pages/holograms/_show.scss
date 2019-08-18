@@ -41,9 +41,21 @@
 }
 
 #hologram-qrcode {
-  width: 50%;
-  padding-right: 30px;
+  padding-right: 24px;
+  img {
+    width: 400px;
+    margin: 0;
+  }
+  div {
+    display: flex;
+    justify-content: center;
+  }
+  a {
+    margin: 0px 24px;
+    font-size: 32px;
+  }
 }
+
 
 .hologram-description {
   flex-grow: 1;
@@ -82,6 +94,10 @@
   cursor: grabbing;
 }
 
+.qr-print {
+  display: none;
+}
+
 @media (max-width: 992px) {
   .hologram-header {
     padding: 48px 20px;
@@ -93,6 +109,11 @@
   }
   p {
     font-size: 16px;
+  }
+  #hologram-qrcode {
+    img {
+      width: 260px;
+    }
   }
 }
 
@@ -116,6 +137,11 @@
   }
   p {
     font-size: 14px;
+  }
+  #hologram-qrcode {
+    img {
+      width: 220px;
+    }
   }
 }
 
@@ -143,8 +169,13 @@
   }
 
   #hologram-qrcode {
-    width: 100%;
     padding: 10px;
+    img {
+      width: 100%;
+    }
+    a {
+      font-size: 24px;
+    }
   }
 
   .hologram-description {
