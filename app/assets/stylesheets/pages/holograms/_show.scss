@@ -124,16 +124,17 @@
 
 @media (max-width: 576px) {
   .hologram-header {
-    padding: 36px 0px;
+    padding: 24px 0px;
   }
   .hologram-title {
     h1 {
-      font-size: 18px;
+      font-size: 16px;
+      margin: 0;
     }
     img {
       margin: 0;
-      width: 80px;
-      height: 80px;
+      width: 64px;
+      height: 64px;
     }
     p {
       font-size: 10px;
