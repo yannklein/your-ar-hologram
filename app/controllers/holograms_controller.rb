@@ -50,9 +50,8 @@ class HologramsController < ApplicationController
 
   def color_save
     @hologram = Hologram.find(params[:id])
-    @hologram.background = params[:hologram][:background]
+    @hologram.background = hologram_params[:background]
     @hologram.save
-    raise
     redirect_to hologram_path(@hologram)
   end
 
