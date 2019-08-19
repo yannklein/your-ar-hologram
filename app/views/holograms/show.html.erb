@@ -20,12 +20,24 @@
     <div id="hologram-qrcode">
       <%= image_tag @marker_png %>
       <div>
-        <%= link_to 'print', :onclick => 'window.print();return false;', class:'button-text-light-blue' do %>
-          <i class="fas fa-print"></i>
-        <% end %>
-        <%= link_to @marker_png, class:'button-text-light-blue', :type => 'image/png', :disposition => 'attachment', download: 'qrcode.png' do %>
-          <i class="fas fa-link"></i>
-        <% end %>
+        <div class="hologram-qrcode-action">
+          <%= link_to 'print', :onclick => 'window.print();return false;', class:'button-text-light-blue' do %>
+            <i class="fas fa-print"></i>
+          <% end %>
+          <p class="hologram-qrcode-action-text">Print</p>
+        </div>
+        <div class="hologram-qrcode-action">
+          <%= link_to @marker_png, class:'button-text-light-blue', :type => 'image/png', :disposition => 'attachment', download: 'qrcode.png' do %>
+            <i class="fas fa-link"></i>
+          <% end %>
+          <p class="hologram-qrcode-action-text">Download</p>
+        </div>
+          <div class="hologram-qrcode-action">
+          <%= link_to color_pick_path(@hologram), class:'button-text-light-blue' do %>
+            <i class="fas fa-fill-drip"></i>
+          <% end %>
+          <p class="hologram-qrcode-action-text">Set background</p>
+        </div>
       </div>
     </div>
     <div class="hologram-description">

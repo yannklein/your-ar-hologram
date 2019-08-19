@@ -97,7 +97,7 @@ class HologramsController < ApplicationController
     base_marker = Magick::Image.read_inline(raw_qrcode)
     base_marker = base_marker[0]
 
-    white_margin = 0.1
+    white_margin = 0.07
     black_margin = 0.2
 
     base_marker.border!(512 * black_margin, 512 * black_margin, 'black')

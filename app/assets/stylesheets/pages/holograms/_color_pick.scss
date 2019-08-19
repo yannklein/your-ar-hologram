@@ -7,7 +7,7 @@
 .picker-thumbnail{
   position:relative;
   display: block;
-  width: 100%;
+  width: 80%;
   overflow:hidden;
   margin: 40px auto;
 }
@@ -53,5 +53,6 @@
 .background-form {
   display: flex;
   justify-content: center;
+  margin-bottom: 24px;
 }
 
