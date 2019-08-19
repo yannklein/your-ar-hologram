@@ -32,12 +32,14 @@
           <% end %>
           <p class="hologram-qrcode-action-text">Download</p>
         </div>
+        <% if current_user == @hologram.user %>
           <div class="hologram-qrcode-action">
-          <%= link_to color_pick_path(@hologram), class:'button-text-light-blue' do %>
-            <i class="fas fa-fill-drip"></i>
-          <% end %>
-          <p class="hologram-qrcode-action-text">Set background</p>
-        </div>
+            <%= link_to color_pick_path(@hologram), class:'button-text-light-blue' do %>
+              <i class="fas fa-fill-drip"></i>
+            <% end %>
+            <p class="hologram-qrcode-action-text">Set background</p>
+          </div>
+        <% end %>
       </div>
     </div>
     <div class="hologram-description">
