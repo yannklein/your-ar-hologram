@@ -31,14 +31,12 @@ function findPos(obj) {
 
 const createPicker = () => {
   // vars
-  console.log("hello");
   const img = document.querySelector('.picker-thumbnail img');
   const canvas = document.querySelector('#picker-cs');
   const result = document.querySelector('.picker-result');
   const preview = document.querySelector('.picker-preview');
   const submitBackground = document.querySelector('#hologram_background');
   var x = '', y = '';
-  console.log("hello!");
 
   // click function
   img.addEventListener('click', function(e){
