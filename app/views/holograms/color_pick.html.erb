@@ -1,9 +1,13 @@
-<div class="picker-thumbnail">
-  <div class="picker-preview"></div>
-  <%= cl_image_tag @hologram.video, :format=>"jpg"%>
-</div>
-<canvas id="picker-cs"></canvas>
-<div class="picker-result">
-  <span>HEX: #22142b</span>
-  <span>RGB: rgb(34,20,43)</span>
+<div class="container-hologram">
+  <h2 class="colorpick-title">One last step: click on your video's background color</h2>
+  <div class="picker-thumbnail">
+    <div class="picker-preview"></div>
+    <%= cl_image_tag @hologram_base64 %>
+  </div>
+  <canvas id="picker-cs"></canvas>
+  <%= simple_form_for @hologram, :html => {class: 'background-form'}, :url => {action: 'color_save'} do |f| %>
+    <%= f.error_notification %>
+    <%= f.input :background, as: :hidden %>
+    <%= f.button :submit, value: 'That\'s my background color', class: 'btn btn-primary' %>
+  <% end %>
 </div>

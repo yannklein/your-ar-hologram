@@ -115,7 +115,7 @@ const initThree = (holoVideo, qrcodePatt) => {
   const ysize = xsize * 0.5625;
 
   const videoGeometry = new THREE.PlaneGeometry(xsize, ysize);
-  const videoMaterial = new ChromaKeyMaterial(holoVideo, 1280, 720, 0xd432);
+  const videoMaterial = new ChromaKeyMaterial(holoVideo, 1280, 720, parseInt(window.holoBackground.slice(1),16));
   videoElement = window.video;
   // green: 0xd432
   // white: 0xffff

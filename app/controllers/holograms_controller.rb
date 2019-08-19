@@ -39,11 +39,20 @@ class HologramsController < ApplicationController
     @hologram = Hologram.new(hologram_params)
     @hologram.user = current_user
     @hologram.save
-    redirect_to color_pick_path
+    redirect_to color_pick_path(@hologram)
   end
 
   def color_pick
     @hologram = Hologram.find(params[:id])
+    hologram_url = Cloudinary::Utils.cloudinary_url(@hologram.video, :format => :png)
+    @hologram_base64 = "data:image/png;base64,#{Base64.encode64(open(hologram_url) { |io| io.read })}"
+  end
+
+  def color_save
+    @hologram = Hologram.find(params[:id])
+    @hologram.background = params[:hologram][:background]
+    @hologram.save
+    redirect_to hologram_path(@hologram)
   end
 
   def edit
@@ -63,7 +72,7 @@ class HologramsController < ApplicationController
   end
 
   def pattern
-    @hologram = Hologram.find(params['id'])
+    @hologram = Hologram.find(params[:id])
     render 'pattern'
   end
 
@@ -99,6 +108,6 @@ class HologramsController < ApplicationController
   end
 
   def hologram_params
-    params.require(:hologram).permit(:title, :description, :video, :qrcode, :marker)
+    params.require(:hologram).permit(:title, :description, :video, :qrcode, :marker, :background)
   end
 end

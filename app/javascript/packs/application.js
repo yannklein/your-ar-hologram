@@ -26,8 +26,6 @@ if(document.querySelector(".close-welcome")) {
   });
 }
 
-const img = document.querySelector('.picker-thumbnail img');
-const canvas = document.querySelector('#picker-cs');
-const result = document.querySelector('.picker-result');
-const preview = document.querySelector('.picker-preview');
-createPicker(img, canvas, result, preview);
+if(document.querySelector('#hologram_background')) {
+  createPicker();
+}

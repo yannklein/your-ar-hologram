@@ -5,6 +5,7 @@
   const videoUrl = "<%= "#{@hologram.video.identifier.split(/\//)[0..-3].concat(["w_1280,h_720", @hologram.video.identifier.split(/\//)[-1]]).join("/")}" %>";
   window.holoVideo =  `${baseURL}${videoUrl}`;
   window.holoQRPatt = `<%= "#{root_url}holograms/#{@hologram.id}/pattern.txt" %>`;
+  window.holoBackground = "<%= @hologram.background.blank? ? "#00D432" : @hologram.background %>"
 </script>
 <script id="vertexShader" type="x-shader/x-vertex">
   varying vec2 vUv;

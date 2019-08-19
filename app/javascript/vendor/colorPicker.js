@@ -29,8 +29,14 @@ function findPos(obj) {
     return undefined;
 }
 
-const createPicker = (img, canvas, result, preview) => {
+const createPicker = () => {
   // vars
+  console.log("hello");
+  const img = document.querySelector('.picker-thumbnail img');
+  const canvas = document.querySelector('#picker-cs');
+  const result = document.querySelector('.picker-result');
+  const preview = document.querySelector('.picker-preview');
+  const submitBackground = document.querySelector('#hologram_background');
   var x = '', y = '';
   console.log("hello!");
 
@@ -49,8 +55,11 @@ const createPicker = (img, canvas, result, preview) => {
     useCanvas(canvas,img,function(){
       // get image data
       var p = canvas.getContext('2d').getImageData(x, y, 1, 1).data;
+      //console.log(rgbToHex(p[0],p[1],p[2]));
+      const hexBackground = rgbToHex(p[0],p[1],p[2]);
+      submitBackground.value = hexBackground;
       // show info
-      result.innerHTML = '<span>HEX: '+rgbToHex(p[0],p[1],p[2])+'</span>'+'<span>RGB:  rgb('+p[0]+','+p[1]+','+p[2]+')</span>';
+      //result.innerHTML = '<span>HEX: '+rgbToHex(p[0],p[1],p[2])+'</span>'+'<span>RGB:  rgb('+p[0]+','+p[1]+','+p[2]+')</span>';
 
       // add background in body
       document.body.style.background =rgbToHex(p[0],p[1],p[2]);
