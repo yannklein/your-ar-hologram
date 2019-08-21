@@ -1,7 +1,11 @@
-<div class="container-hologram small">
+<div class="container-hologram small laptop">
   <h2 class="new-form-title">Upload a video 🎬</h2>
   <%= render 'video_form' %>
   <%= render 'shared/progress_bar' %>
+</div>
+<div class="container-hologram small mobile">
+  <h2 class="new-form-title">The upload is not available for mobile yet... Please use you laptop!
+<🎬</h2>
 </div>
 <script>
   window.QRForPattern = '<%= @qrcode_png.squish %>'

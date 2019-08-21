@@ -3,6 +3,10 @@
   color: $light-blue;
 }
 
+.container-hologram.small.mobile {
+  display: none;
+}
+
 .new-form-progress{
   margin: 16px 0;
   div{
@@ -12,5 +16,14 @@
   }
   p {
     margin: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .container-hologram.small.mobile {
+    display: block;
+  }
+  .container-hologram.small.laptop {
+    display: none;
   }
 }
