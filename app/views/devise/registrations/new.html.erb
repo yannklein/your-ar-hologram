@@ -5,13 +5,29 @@
     <%= f.error_notification %>
 
     <div class="form-inputs">
-      <div style="display: flex; align-items: center; padding: 5px; justify-content: space-between;">
+      <style>
+        .registration-pic {
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            justify-content: space-between;
+        }
+        @media(max-width: 576px){
+          .registration-pic {
+            flex-direction: column;
+          }
+          .registration-pic img {
+              margin-bottom: 5px;
+          }
+        };
+      </style>
+      <div class="registration-pic">
         <%= cl_image_tag "https://loremflickr.com/150/150/kitten", :format=>"jpg", :gravity=>"faces", class: 'signup-picture avatar-bordered'%>
         <%= f.input :picture,
                     required: false,
                     autofocus: true,
                     label: "Don't like kittens? Change your picture:",
-                    class: 'signup-picture-input' %>
+                    class: 'signup-picture-input btn button-text-light-blue' %>
       </div>
       <%= f.input :name,
                   required: true %>
