@@ -38,6 +38,51 @@ const ChromaKeyMaterial = function (url, width, height, keyColor) {
 		}
 	}
 
+  const fragmentShaderSource = `
+    uniform sampler2D texture;
+    uniform vec3 color;
+
+    varying vec2 vUv;
+
+    void main()
+    {
+      vec3 colorToRemove = vec3(${keyColorObject.r}, ${keyColorObject.g}, ${keyColorObject.b});
+      vec3 fragmentColor = texture2D( texture, vUv ).rgb;
+      float thresholdColor = 0.2;
+      float thresholdTone = 0.1;
+
+      float diffR = abs(colorToRemove[0] - fragmentColor.r);
+      float diffG = abs(colorToRemove[0] - fragmentColor.r);
+      float diffB = abs(colorToRemove[0] - fragmentColor.r);
+
+      float diffRG = abs( (colorToRemove[0] - fragmentColor.r) - (colorToRemove[1] - fragmentColor.g) );
+      float diffRB = abs( (colorToRemove[0] - fragmentColor.r) - (colorToRemove[2] - fragmentColor.b) );
+
+      if ( diffRG <= thresholdTone
+        && diffRB <= thresholdTone
+        && diffR <= thresholdColor
+        && diffG <= thresholdColor
+        && diffB <= thresholdColor ) {
+        gl_FragColor = vec4(texture2D( texture, vUv ).rgb, 0.0);
+      } else {
+        gl_FragColor = vec4(texture2D( texture, vUv ).rgb, 1.0);
+      }
+
+    }
+  `;
+
+  const vertxShaderSource = `
+    varying vec2 vUv;
+
+    void main()
+    {
+      vUv = uv;
+      vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+      gl_Position = projectionMatrix * mvPosition;
+
+    }
+  `;
+
 	this.setValues({
 
 		uniforms: {
@@ -50,8 +95,8 @@ const ChromaKeyMaterial = function (url, width, height, keyColor) {
 				value: keyColorObject
 			}
 		},
-		vertexShader: document.getElementById('vertexShader').textContent,
-		fragmentShader: document.getElementById('fragmentShader').textContent,
+		vertexShader: vertxShaderSource,
+		fragmentShader: fragmentShaderSource,
 
 		transparent: true
 	});
