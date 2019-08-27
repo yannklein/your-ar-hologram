@@ -3,6 +3,5 @@
   <%= f.input :title, label: 'Choose a great title:'%>
   <%= f.input :description, label: 'Take a breath and go for a cool description:', as: :text, :input_html => {:style => 'width: 100%', :rows => 5 } %>
   <%= f.input :video, label: 'Now upload your video 😎👇'%>
-  <%= f.input :qrcode, as: :hidden, value: @hologram.marker.qrcode %>
   <%= f.button :submit, value: 'Brew your hologram', class: 'btn btn-primary' %>
 <% end %>
