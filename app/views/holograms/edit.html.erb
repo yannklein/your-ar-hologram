@@ -5,8 +5,6 @@
     <%= f.input :title, label: 'A better title?'%>
     <%= f.input :description, label: 'Or maybe a more inspiring description?', as: :text, :input_html => {:style => 'width: 100%', :rows => 5 } %>
     <%= f.input :video, label: 'Or a new video 😎👇'%>
-    <%= f.input :marker, as: :hidden %>
-    <%= f.input :qrcode, as: :hidden, value: @hologram.qrcode %>
     <%= f.button :submit, value: 'Save', class: 'btn btn-primary' %>
     <%= link_to 'Back without saving', hologram_path(@hologram), class: 'btn btn-secondary' %>
   <% end %>

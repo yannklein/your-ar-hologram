@@ -3,7 +3,7 @@ require 'barby'
 require 'barby/barcode'
 require 'barby/barcode/qr_code'
 require 'barby/outputter/png_outputter'
-require 'RMagick'
+require 'rmagick'
 
 class HologramsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :pattern, :live]
@@ -20,7 +20,7 @@ class HologramsController < ApplicationController
 
   def show
     @hologram = Hologram.find(params['id'])
-    @marker_png = create_marker(@hologram.qrcode)
+    @marker_png = create_marker(@hologram.marker.qrcode)
   end
 
   def live
@@ -29,16 +29,18 @@ class HologramsController < ApplicationController
 
   def new
     @hologram = Hologram.new
-    @new_id = Hologram.last ? Hologram.last.id + 1 : 1
-    @hologram.qrcode = create_raw_qrcode(@new_id)
-    @qrcode_png = to_png(@hologram.qrcode)
-    @marker_png = create_marker(@hologram.qrcode)
   end
 
   def create
     @hologram = Hologram.new(hologram_params)
     @hologram.user = current_user
+
+    #Assign the right marker
+    @new_id = Hologram.last ? Hologram.last.id + 1 : 1
+    @hologram.marker = Marker.find(@new_id)
+
     @hologram.save
+
     redirect_to color_pick_path(@hologram)
   end
 
@@ -61,6 +63,7 @@ class HologramsController < ApplicationController
 
   def update
     @hologram = Hologram.find(params[:id])
+    @hologram.marker = Marker.find(params[:id])
     @hologram.update(hologram_params)
     redirect_to hologram_path(@hologram)
   end
@@ -77,19 +80,6 @@ class HologramsController < ApplicationController
   end
 
   private
-
-  def create_raw_qrcode(new_holo_id)
-    # Produce the hologram live url
-    live_url = "#{root_url}/holograms/#{new_holo_id}/live"
-    live_url = live_url.sub("http:", "https:")
-    # Create the QR code PGN image
-    barcode = Barby::QrCode.new(live_url, level: :q, size: 5)
-    Base64.encode64(barcode.to_png(xdim: 5))
-  end
-
-  def to_png(raw_data)
-    "data:image/png;base64,#{raw_data}"
-  end
 
   def create_marker(raw_qrcode)
     # Create the marker containing the QR code
@@ -108,6 +98,6 @@ class HologramsController < ApplicationController
   end
 
   def hologram_params
-    params.require(:hologram).permit(:title, :description, :video, :qrcode, :marker, :background)
+    params.require(:hologram).permit(:title, :description, :video, :qrcode, :background)
   end
 end
