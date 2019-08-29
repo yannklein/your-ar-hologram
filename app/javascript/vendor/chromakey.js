@@ -31,7 +31,7 @@ const ChromaKeyMaterial = function (url, width, height, keyColor) {
 
 	this.update = function () {
 		if (video.readyState === video.HAVE_ENOUGH_DATA) {
-			videoImageContext.drawImage(video, 0, 0);
+			videoImageContext.drawImage(video, (width / 2) - (video.videoWidth / 2), 0);
 			if (videoTexture) {
 				videoTexture.needsUpdate = true;
 			}
