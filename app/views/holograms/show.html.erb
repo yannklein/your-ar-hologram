@@ -1,6 +1,6 @@
 <% content_for :meta_title, "#{@hologram.title} is on #{DEFAULT_META["meta_product_name"]}" %>
 <% content_for :meta_description, @hologram.description %>
-<% content_for :meta_image, cl_image_path(@hologram.video, format: :png, :width=>720, :gravity => :face, :crop=>"crop") %>
+<% content_for :meta_image, cl_image_path(@hologram.video, format: :png, :width=>720, :height=>480, :gravity => :face, :crop=>"crop") %>
 
 <div class="container-hologram no-print">
   <div class="hologram-header">
@@ -47,7 +47,7 @@
       </div>
     </div>
     <div class="hologram-description">
-      <%= cl_image_tag @hologram.video, :format=>"gif", :video_sampling=>"1.1s", :delay=>"100", :effect=>"loop", :resource_type=>"video", :width=>720, :gravity => :face %>
+      <%= cl_image_tag @hologram.video, :format=>"gif", :video_sampling=>"1.1s", :delay=>"100", :effect=>"loop", :resource_type=>"video", :width=>720, :height=>606, :gravity => :face %>
       <h3>About this hologram </h3>
       <p><%= @hologram.description %></p>
     </div>
