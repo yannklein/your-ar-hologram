@@ -6,8 +6,8 @@ require 'barby/outputter/png_outputter'
 require 'rmagick'
 
 class HologramsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :pattern, :live]
-  protect_from_forgery except: :show
+  skip_before_action :authenticate_user!, only: [:index, :pattern, :live, :show]
+  # protect_from_forgery except: :show
 
   def index
     @holograms = Hologram.all.order("created_at DESC")
