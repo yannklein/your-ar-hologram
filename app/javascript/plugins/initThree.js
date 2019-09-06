@@ -53,7 +53,8 @@ const welcomeMessage = () => {
       showLoaderOnConfirm: true,
       preConfirm: () => {
         Swal.insertQueueStep({
-          title: 'Tap the holo to play it!',
+          title: 'Point the marker with you phone!',
+          footer: 'Tap the holo to play it',
             type: 'info',
         confirmButtonText: 'OK'
       })
@@ -111,7 +112,7 @@ const initThree = (holoVideo, qrcodePatt) => {
   // add the video
   const all = new THREE.Group();
 
-  const xsize = 6;
+  const xsize = 3;
   const ysize = xsize * 0.5625;
 
   const videoGeometry = new THREE.PlaneGeometry(xsize, ysize);
