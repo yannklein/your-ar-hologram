@@ -36,7 +36,6 @@ class MarkersController < ApplicationController
     redirect_to markers_path
   end
 
-
   private
 
   def create_raw_qrcode(new_holo_id)

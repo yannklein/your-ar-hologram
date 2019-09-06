@@ -4,6 +4,6 @@
   const baseURL = "https://res.cloudinary.com/yanninthesky/";
   const videoUrl = "<%= "#{@hologram.video.identifier.split(/\//)[0..-3].concat(["h_720", @hologram.video.identifier.split(/\//)[-1]]).join("/")}" %>";
   window.holoVideo =  `${baseURL}${videoUrl}`;
-  window.holoQRPatt = `<%= "#{root_url}holograms/#{@hologram.id}/pattern.txt" %>`;
-  window.holoBackground = "<%= @hologram.background.blank? ? "#00D432" : @hologram.background %>"
+  window.holoQRPatt = `${window.location.protocol}//${window.location.host}/holograms/<%= @hologram.id %>/pattern.txt`;
+  window.holoBackground = "<%= @hologram.background.blank? ? "#00D432" : @hologram.background %>";
 </script>
