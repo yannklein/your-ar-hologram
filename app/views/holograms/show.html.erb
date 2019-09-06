@@ -1,4 +1,4 @@
-<% content_for :meta_title, "#{@hologram.title} is on #{DEFAULT_META["meta_product_name"]}" %>
+<% content_for :meta_title, "#{@hologram.title} on #{DEFAULT_META["meta_product_name"]}" %>
 <% content_for :meta_description, @hologram.description %>
 <% content_for :meta_image, cl_image_path(@hologram.video, format: :png, :width=>720, :height=>480, :gravity => :face, :crop=>"crop", :start_offset=>"1") %>
 
