@@ -63,6 +63,7 @@
     font-size: 12px;
     transition: 0.5s;
   }
+  margin: 0 8px;
 }
 .hologram-qrcode-action:hover .hologram-qrcode-action-text {
     opacity: 1;
@@ -89,6 +90,17 @@
     color: $light-blue;
   }
 }
+
+.hologram-demo-mobile {
+  display: none;
+  margin: 56px 0;
+  h2 {
+    text-align: center;
+    margin: 20px 0;
+    color: $light-blue;
+  }
+}
+
 .digital-qr-frame {
   padding: 8px;
   background-color: white;
@@ -199,9 +211,12 @@
     }
   }
   p {
-    font-size: 12px;
+    font-size: 14px;
   }
   .hologram-demo {
     display: none;
+  }
+  .hologram-demo-mobile {
+    display: block;
   }
 }
