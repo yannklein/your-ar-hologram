@@ -6,7 +6,11 @@
   <div class="hologram-header">
     <div class="hologram-title">
       <div class="hologram-title-text">
-        <h1><%= @hologram.title %></h1>
+        <% unless @hologram.title.blank? %>
+          <h1><%= @hologram.title %></h1>
+        <% else %>
+          <h2>One more holo</h2>
+        <% end %>
         <p>Created on <%= @hologram.created_at.strftime('%A, %d %B %Y') %></p>
       </div>
       <%= link_to(user_path(@hologram.user.nickname)) do %>
@@ -49,7 +53,11 @@
     <div class="hologram-description">
       <%= cl_image_tag @hologram.video, :format=>"gif", :video_sampling=>"1.1s", :delay=>"100", :effect=>"loop", :resource_type=>"video", :width=>720, :height=>606, :gravity => :face %>
       <h3>About this hologram </h3>
-      <p><%= @hologram.description %></p>
+      <% unless @hologram.description.blank? %>
+        <p><%= @hologram.description %></p>
+      <% else %>
+        <p>No explanations here, the hologram speaks for itself!</p>
+      <% end %>
     </div>
   </div>
   <div class="hologram-demo-mobile">
@@ -84,7 +92,7 @@
   }
   body {
     text-align: center;
-    height: 130vw;
+
     background-color: white;
     display: flex;
     align-items: center;

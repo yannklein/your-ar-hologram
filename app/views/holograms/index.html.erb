@@ -20,15 +20,23 @@
     <%= link_to(hologram_path(hologram)) do %>
       <div class="card-hologram">
         <div class="card-hologram-title">
-          <h2><%= hologram.title %></h2>
+          <% unless hologram.title.blank? %>
+            <h2><%= hologram.title %></h2>
+          <% else %>
+            <h2>One more holo</h2>
+          <% end %>
           <p><em>From <%= hologram.user.nickname %></em></p>
         </div>
         <%= cl_image_tag hologram.video, :format=>"jpg", :width=>720, :height=>563, :gravity => :face, :crop=>"crop", :start_offset=>"1" %>
         <div class="card-hologram-description">
-          <% if hologram.description.size >= 60 %>
-           <p> <%= hologram.description.first(60) %>...</p>
+          <% unless hologram.description.blank? %>
+            <% if hologram.description.size >= 60 %>
+             <p> <%= hologram.description.first(60) %>...</p>
+            <% else %>
+              <p> <%= hologram.description %></p>
+            <% end %>
           <% else %>
-            <p> <%= hologram.description %></p>
+            <p>No explanations here, the hologram speaks for itself!</p>
           <% end %>
           <p><span>Read more</span></p>
         </div>
