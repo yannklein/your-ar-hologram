@@ -27,7 +27,7 @@
           <% end %>
           <p><em>From <%= hologram.user.nickname %></em></p>
         </div>
-        <%= cl_image_tag hologram.video, :format=>"jpg", :width=>720, :height=>563, :gravity => :face, :crop=>"crop", :start_offset=>"1" %>
+        <%= cl_image_tag hologram.video, :format=>"jpg", :width=>300, :height=>200, :gravity => :face, :crop=>"crop", :start_offset=>"1" %>
         <div class="card-hologram-description">
           <% unless hologram.description.blank? %>
             <% if hologram.description.size >= 60 %>
