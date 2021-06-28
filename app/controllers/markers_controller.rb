@@ -12,15 +12,19 @@ class MarkersController < ApplicationController
 
   def new
     @marker = Marker.new
-    @new_id = Marker.last ? Marker.last.id + 1 : 1
-    @marker.qrcode = create_raw_qrcode(@new_id)
+    # Assign the marker id before creating the marker, 
+    # code weak to same time holo creation, to be fixed later
+    @last_id = Hologram.last.nil? ? 1 : Hologram.last.id + 1 
+    @marker.qrcode = create_raw_qrcode(@last_id)
+    
     @qrcode_png = to_png(@marker.qrcode)
+    @marker_png = create_marker(@marker.qrcode)
   end
 
   def create
     @marker = Marker.new(marker_params)
     @marker.save
-    redirect_to markers_path
+    redirect_to new_hologram_path(marker_id: @marker)
   end
 
   def edit
@@ -33,7 +37,7 @@ class MarkersController < ApplicationController
   def update
     @marker = Marker.find(params[:id])
     @marker.update(marker_params)
-    redirect_to markers_path
+    redirect_to new_hologram_path(marker_id: @marker)
   end
 
   private
@@ -53,5 +57,21 @@ class MarkersController < ApplicationController
 
   def marker_params
     params.require(:marker).permit(:qrcode, :pattern)
+  end
+
+  def create_marker(raw_qrcode)
+    # Create the marker containing the QR code
+    # Load QR Code
+    base_marker = Magick::Image.read_inline(raw_qrcode)
+    base_marker = base_marker[0]
+
+    white_margin = 0.07
+    black_margin = 0.2
+
+    base_marker.border!(512 * black_margin, 512 * black_margin, 'black')
+    base_marker.border!(512 * white_margin, 512 * white_margin, 'white')
+
+    full_image64 = Base64.encode64(base_marker.to_blob { |attrs| attrs.format = 'PNG' })
+    "data:image/png;base64,#{full_image64}"
   end
 end

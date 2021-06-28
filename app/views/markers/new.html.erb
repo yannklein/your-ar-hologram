@@ -1,10 +1,18 @@
-<div class="container-hologram small laptop">
-  <h2 class="new-form-title">Create a new marker</h2>
+<div class="container-hologram laptop">
+  <h2 class="new-form-title">First step, the QR code generation 🤳</h2>
+  <p>We will go through 3 steps to make your hologram.</p>
+  <ul>
+    <li>First we will generate a QR code we will share it with you when the hologram is finalized)</li>
+    <li>Then we will ask you to upload a video to tur it into an holo</li>
+    <li>we will finally ask you click on its background for us to erase it.</li>
+  </ul
+  ><p>Ready?</p>
+  <%= image_tag @marker_png, class: 'qr-print' %>
   <%= simple_form_for @marker, html: {class: 'new-form-content'} do |f| %>
     <%= f.error_notification %>
     <%= f.input :pattern, as: :hidden %>
     <%= f.input :qrcode, as: :hidden, value: @marker.qrcode %>
-    <%= f.button :submit, value: "Create the new marker No. #{@new_id}", class: 'btn btn-primary' %>
+    <%= f.button :submit, value: "Generate the QR code", class: 'btn btn-primary' %>
   <% end %>
 </div>
 <script>

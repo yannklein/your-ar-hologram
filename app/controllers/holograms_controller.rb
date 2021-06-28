@@ -30,19 +30,17 @@ class HologramsController < ApplicationController
 
   def new
     @hologram = Hologram.new
+    @hologram.marker = Marker.find(params[:marker_id])
   end
 
   def create
     @hologram = Hologram.new(hologram_params)
     @hologram.user = current_user
-
-    #Assign the right marker
-    @new_id = Hologram.last ? Hologram.last.id + 1 : 1
-    @hologram.marker = Marker.find(@new_id)
-
-    @hologram.save
-
-    redirect_to color_pick_path(@hologram)
+    if @hologram.save
+      redirect_to color_pick_path(@hologram)
+    else
+      render :new
+    end
   end
 
   def color_pick
@@ -98,7 +96,16 @@ class HologramsController < ApplicationController
     "data:image/png;base64,#{full_image64}"
   end
 
+  def create_raw_qrcode(new_holo_id)
+    # Produce the hologram live url
+    live_url = "#{root_url}/holograms/#{new_holo_id}/live"
+    live_url = live_url.sub("http:", "https:")
+    # Create the QR code PGN image
+    barcode = Barby::QrCode.new(live_url, level: :q, size: 5)
+    Base64.encode64(barcode.to_png(xdim: 5))
+  end
+
   def hologram_params
-    params.require(:hologram).permit(:title, :description, :video, :qrcode, :background)
+    params.require(:hologram).permit(:title, :description, :video, :qrcode, :background, :marker_id)
   end
 end

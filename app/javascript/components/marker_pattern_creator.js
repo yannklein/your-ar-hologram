@@ -51,7 +51,7 @@ const encodeImage = (image) => {
   }
   // console.log(patternFileString);
   // window.pattern = patternFileString;
-  debugger
+  // debugger
   document.querySelector("#marker_pattern").value = patternFileString;
 }
 
