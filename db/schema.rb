@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_27_055732) do
+ActiveRecord::Schema.define(version: 2021_06_28_160812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2019_08_27_055732) do
     t.string "video"
     t.string "background"
     t.bigint "marker_id"
+    t.string "depth_img"
     t.index ["marker_id"], name: "index_holograms_on_marker_id"
     t.index ["user_id"], name: "index_holograms_on_user_id"
   end

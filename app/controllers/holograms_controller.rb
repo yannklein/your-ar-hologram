@@ -35,6 +35,17 @@ class HologramsController < ApplicationController
 
   def create
     @hologram = Hologram.new(hologram_params)
+
+    # if video is actually a iPhone portrait image try to create the depth
+    if ['jpg', 'jpeg', 'png'].include?(@hologram.video.file.extension.downcase)
+      img_path = @hologram.video.path
+      depth_img_url = Rails.root.join('public/depth_img.jpg')
+      # depth_img_data = MiniExiftool.new('-b', img_path)
+      system "exiftool -b -MPImage2 #{img_path} > #{depth_img_url}"
+      src_file = File.new(depth_img_url)
+      @hologram.depth_img = src_file
+    end
+    
     @hologram.user = current_user
     if @hologram.save
       redirect_to color_pick_path(@hologram)
@@ -94,15 +105,6 @@ class HologramsController < ApplicationController
 
     full_image64 = Base64.encode64(base_marker.to_blob { |attrs| attrs.format = 'PNG' })
     "data:image/png;base64,#{full_image64}"
-  end
-
-  def create_raw_qrcode(new_holo_id)
-    # Produce the hologram live url
-    live_url = "#{root_url}/holograms/#{new_holo_id}/live"
-    live_url = live_url.sub("http:", "https:")
-    # Create the QR code PGN image
-    barcode = Barby::QrCode.new(live_url, level: :q, size: 5)
-    Base64.encode64(barcode.to_png(xdim: 5))
   end
 
   def hologram_params
