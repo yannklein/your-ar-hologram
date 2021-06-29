@@ -23,6 +23,7 @@ gem 'rqrcode','~> 0.4.2'
 gem 'chunky_png'
 gem 'rmagick'
 
+
 group :development do
   gem 'web-console', '>= 3.3.0'
 end
