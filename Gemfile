@@ -22,7 +22,6 @@ gem 'barby',  '~> 0.6.2'
 gem 'rqrcode','~> 0.4.2'
 gem 'chunky_png'
 gem 'rmagick'
-gem 'mini_exiftool'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
