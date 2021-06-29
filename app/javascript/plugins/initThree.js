@@ -19,6 +19,9 @@ const onDocumentTouchStart = (event) => {
 
 const onDocumentMouseDown = (event) => {
 
+  if (window.holoDepth) {
+    return;
+  }
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();
 
