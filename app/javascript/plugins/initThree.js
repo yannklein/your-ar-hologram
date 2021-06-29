@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { initARJS, isMarkerVisible } from './initAR';
 import { ChromaKeyMaterial } from '../vendor/chromakey';
 import Swal from 'sweetalert2';
@@ -62,6 +62,22 @@ const welcomeMessage = () => {
   }])
 }
 
+const addHoloVideo = (scene, onRenderFcts, holoGeometry, holoVideo, ysize) => {
+  const videoMaterial = new ChromaKeyMaterial(holoVideo, 1280, 720, parseInt(window.holoBackground.slice(1),16));
+  videoElement = window.video;
+  // green: 0xd432
+  // white: 0xffff
+  const videoPlane = new THREE.Mesh( holoGeometry, videoMaterial );
+  videoPlane.scale.multiplyScalar(1);
+  videoPlane.position.y = ysize/2;
+  scene.add( videoPlane );
+  window.videoPlane = videoPlane;
+
+  onRenderFcts.push(function(delta, now){
+    videoMaterial.update();
+  })
+};
+
 const initThree = (holoVideo, qrcodePatt) => {
   //Error if not WebGL compatible
   // if ( WEBGL.isWebGLAvailable() === false ) {
@@ -115,20 +131,8 @@ const initThree = (holoVideo, qrcodePatt) => {
   const xsize = 3;
   const ysize = xsize * 0.5625;
 
-  const videoGeometry = new THREE.PlaneGeometry(xsize, ysize);
-  const videoMaterial = new ChromaKeyMaterial(holoVideo, 1280, 720, parseInt(window.holoBackground.slice(1),16));
-  videoElement = window.video;
-  // green: 0xd432
-  // white: 0xffff
-  const videoPlane = new THREE.Mesh( videoGeometry, videoMaterial );
-  videoPlane.scale.multiplyScalar(1);
-  videoPlane.position.y = ysize/2;
-  all.add( videoPlane );
-  window.videoPlane = videoPlane;
-
-  onRenderFcts.push(function(delta, now){
-    videoMaterial.update();
-  })
+  const holoGeometry = new THREE.PlaneGeometry(xsize, ysize);
+  addHoloVideo(all, onRenderFcts, holoGeometry, holoVideo, ysize);
 
   // add logo floor
   // var geometry = new THREE.PlaneGeometry(2,2);
