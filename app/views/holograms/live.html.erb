@@ -1,9 +1,8 @@
 <div class="live-hologram" style='margin : 0px; overflow: hidden; font-family: Monospace;'>
 </div>
 <script>
-  const baseURL = "https://res.cloudinary.com/yanninthesky/";
-  const videoUrl = "<%= "#{@hologram.video.identifier.split(/\//)[0..-3].concat(["h_720", @hologram.video.identifier.split(/\//)[-1]]).join("/")}" %>";
-  window.holoVideo =  `${baseURL}${videoUrl}`;
+  window.holoVideo =  "<%= @videoUrl %>";
+  window.holoDepth =  "<%= @depthUrl %>";
   window.holoQRPatt = `${window.location.protocol}//${window.location.host}/holograms/<%= @hologram.id %>/pattern.txt`;
   window.holoBackground = "<%= @hologram.background.blank? ? "#00D432" : @hologram.background %>";
 </script>

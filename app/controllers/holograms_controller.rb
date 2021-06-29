@@ -26,6 +26,8 @@ class HologramsController < ApplicationController
 
   def live
     @hologram = Hologram.find(params['id'])
+    @videoUrl = create_cloudinary_url(@hologram.video)
+    @depthUrl = @hologram.depth_img.blank? ? nil : create_cloudinary_url(@hologram.depth_img)
   end
 
   def new
@@ -90,6 +92,11 @@ class HologramsController < ApplicationController
   end
 
   private
+
+  def create_cloudinary_url(media)
+    baseURL = "https://res.cloudinary.com/yanninthesky/";
+    "#{baseURL}#{media.identifier.split(/\//)[0..-3].concat(["h_720", media.identifier.split(/\//)[-1]]).join("/")}"
+  end
 
   def create_marker(raw_qrcode)
     # Create the marker containing the QR code
