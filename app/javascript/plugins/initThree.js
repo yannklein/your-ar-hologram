@@ -62,7 +62,43 @@ const welcomeMessage = () => {
   }])
 }
 
-const addHoloVideo = (scene, onRenderFcts, holoGeometry, holoVideo, ysize) => {
+const loadImage = (url) => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = (e) => { resolve(img); };
+    img.onerror = reject;
+    img.src = url;
+  });
+};
+
+const getImageData = (img) => {  
+  const ctx = document.createElement("canvas").getContext("2d");
+  ctx.canvas.width = img.width;
+  ctx.canvas.height = img.height;
+  ctx.drawImage(img, 0, 0);
+  return ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+};
+
+// return the pixel at UV coordinates (0 to 1) in 0 to 1 values
+const getPixel = (imageData, u, v) => {
+  const x = u * (imageData.width  - 1) | 0;
+  const y = v * (imageData.height - 1) | 0;
+  if (x < 0 || x >= imageData.width || y < 0 || y >= imageData.height) {
+    return [0, 0, 0, 0];
+  } else {
+    const offset = (y * imageData.width + x) * 4;
+    return Array.from(imageData.data.slice(offset, offset + 4)).map(v => v / 255);
+  }
+};
+
+
+const addHoloVideo = (subScene, onRenderFcts, holoVideo) => {
+  const xsize = 3;
+  const ysize = xsize * 0.5625;
+
+  const holoGeometry = new THREE.PlaneGeometry(xsize, ysize);
+
   const videoMaterial = new ChromaKeyMaterial(holoVideo, 1280, 720, parseInt(window.holoBackground.slice(1),16));
   videoElement = window.video;
   // green: 0xd432
@@ -70,12 +106,83 @@ const addHoloVideo = (scene, onRenderFcts, holoGeometry, holoVideo, ysize) => {
   const videoPlane = new THREE.Mesh( holoGeometry, videoMaterial );
   videoPlane.scale.multiplyScalar(1);
   videoPlane.position.y = ysize/2;
-  scene.add( videoPlane );
+  subScene.add( videoPlane );
   window.videoPlane = videoPlane;
 
   onRenderFcts.push(function(delta, now){
     videoMaterial.update();
   })
+};
+
+const addHoloPhoto = async (subScene) => {
+
+  const holoGeometry = new THREE.BufferGeometry();
+
+  const images = await Promise.all([
+    loadImage(window.holoVideo),  // RGB
+    loadImage(window.holoDepth),  // Depth
+  ]);
+  const data = images.map(getImageData);
+  
+  const rgbData = data[0];
+  const depthData = data[1];
+  
+  const skip = 1;
+  const across = Math.ceil(rgbData.width / skip);
+  const down = Math.ceil(rgbData.height / skip);
+  
+  const positions = [];
+  const colors = [];
+  const color = new THREE.Color();
+  const spread = 1;
+  const depthSpread = 1;
+  const imageAspect = rgbData.width / rgbData.height;
+  
+  for (let y = 0; y < down; ++y) {
+    const v = y / (down - 1);
+    for (let x = 0; x < across; ++x) {
+      const u = x / (across - 1);
+      const rgb = getPixel(rgbData, u, v);
+      const depth = getPixel(depthData, u, v)[0];
+      
+      positions.push( 
+         (u *  2 - 1) * spread * imageAspect, 
+         (v * -2 + 1) * spread, 
+         depth * depthSpread,
+      );
+      colors.push( ...rgb.slice(0,3) );
+    }
+  }
+  
+  holoGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ) );
+  holoGeometry.addAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
+  holoGeometry.computeBoundingSphere();
+  const material = new THREE.PointsMaterial( { size: 0.01, vertexColors: THREE.VertexColors } );
+  // holoGeometry.scale(0.5,0.5,0.5);
+  holoGeometry.translate(0,holoGeometry.boundingSphere.radius,0);
+  // holoGeometry.rotateY(Math.PI);
+	const points = new THREE.Points( holoGeometry, material );
+
+  // const geo = new THREE.BoxGeometry( 1, 1, 1 );
+  // const mat = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+  // const cube = new THREE.Mesh( geo, mat );
+  // cube.position.y = 2;
+  // subScene.add( cube );
+  subScene.add( points );
+  
+  // const videoMaterial = new ChromaKeyMaterial(holoVideo, 1280, 720, parseInt(window.holoBackground.slice(1),16));
+  // videoElement = window.video;
+  // // green: 0xd432
+  // // white: 0xffff
+  // const videoPlane = new THREE.Mesh( holoGeometry, videoMaterial );
+  // videoPlane.scale.multiplyScalar(1);
+  // videoPlane.position.y = ysize/2;
+  // scene.add( videoPlane );
+  // window.videoPlane = videoPlane;
+
+  // onRenderFcts.push(function(delta, now){
+  //   videoMaterial.update();
+  // })
 };
 
 const initThree = (holoVideo, qrcodePatt) => {
@@ -128,11 +235,13 @@ const initThree = (holoVideo, qrcodePatt) => {
   // add the video
   const all = new THREE.Group();
 
-  const xsize = 3;
-  const ysize = xsize * 0.5625;
-
-  const holoGeometry = new THREE.PlaneGeometry(xsize, ysize);
-  addHoloVideo(all, onRenderFcts, holoGeometry, holoVideo, ysize);
+  if (window.holoDepth) {
+    // the asset is a iPhone portrait image
+    addHoloPhoto(all)
+  } else {
+    // the asset is a video
+    addHoloVideo(all, onRenderFcts);
+  }
 
   // add logo floor
   // var geometry = new THREE.PlaneGeometry(2,2);
@@ -157,11 +266,13 @@ const initThree = (holoVideo, qrcodePatt) => {
   // render the scene
   onRenderFcts.push(function(){
     renderer.render( scene, camera );
-    if(isMarkerVisible() == false){
-      videoElement.pause();
-    }
-    else if(isMarkerVisible() && videoElement.paused == true && isVideoPlay == true){
-      videoElement.play();
+    if (!window.holoDepth) {
+      if(isMarkerVisible() == false){
+        videoElement.pause();
+      }
+      else if(isMarkerVisible() && videoElement.paused == true && isVideoPlay == true){
+        videoElement.play();
+      }
     }
   })
 
