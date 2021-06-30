@@ -12,10 +12,14 @@ class MarkersController < ApplicationController
 
   def new
     @marker = Marker.new
-    # Assign the marker id before creating the marker, 
-    # code weak to same time holo creation, to be fixed later
-    @last_id = Hologram.last.nil? ? 1 : Hologram.last.id + 1 
-    @marker.qrcode = create_raw_qrcode(@last_id)
+
+    # Prepare a new hologram to get an id ready
+    @hologram = Hologram.new
+    @hologram.user = current_user
+    @hologram.marker = @marker
+    @hologram.save
+
+    @marker.qrcode = create_raw_qrcode(@hologram.id)
     
     @qrcode_png = to_png(@marker.qrcode)
     @marker_png = create_marker(@marker.qrcode)

@@ -36,10 +36,11 @@ class HologramsController < ApplicationController
   end
 
   def create
-    @hologram = Hologram.new(hologram_params)
-
+    # Get the previously created hologram
+    @hologram = Hologram.find_by(marker_id: hologram_params[:marker_id])
+    @hologram.assign_attributes(hologram_params)
     # if video is actually a iPhone portrait image try to create the depth
-    if ['jpg', 'jpeg', 'png'].include?(@hologram.video.file.extension.downcase)
+    if is_image?(@hologram)
       img_path = @hologram.video.path
       depth_img_url = Rails.root.join('public/depth_img.jpg')
       # depth_img_data = MiniExiftool.new('-b', img_path)
@@ -48,12 +49,20 @@ class HologramsController < ApplicationController
       @hologram.depth_img = src_file
     end
     
-    @hologram.user = current_user
+    # @hologram.user = current_user
     if @hologram.save
-      redirect_to color_pick_path(@hologram)
+      if is_image?(@hologram)
+        redirect_to hologram_path(@hologram)
+      else
+        redirect_to color_pick_path(@hologram)
+      end
     else
       render :new
     end
+  end
+
+  def is_image?(hologram)
+    ['jpg', 'jpeg', 'png'].include?(hologram.video.format)
   end
 
   def color_pick
