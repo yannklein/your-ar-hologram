@@ -188,7 +188,7 @@ const addHoloPhoto = async (subScene) => {
   // })
 };
 
-const initThree = (holoVideo, qrcodePatt) => {
+const initThree = (holoVideo, qrcodePatt, isSimulation = false) => {
   //Error if not WebGL compatible
   // if ( WEBGL.isWebGLAvailable() === false ) {
   //     document.body.appendChild( WEBGL.getWebGLErrorMessage() );
@@ -226,7 +226,7 @@ const initThree = (holoVideo, qrcodePatt) => {
   scene.add( light );
 
   // init AR World
-  const arWorldRoot = initARJS(scene, camera, onRenderFcts, renderer, qrcodePatt)
+  const arWorldRoot = initARJS(scene, camera, onRenderFcts, renderer, qrcodePatt, isSimulation)
 
   // Add the objects in the scene
 

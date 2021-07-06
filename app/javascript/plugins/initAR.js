@@ -3,15 +3,25 @@ import {THREEx, WebAR } from '../vendor/ar.js';
 //Initialisation of AR JS
 let artoolkitMarker;
 
-const initARJS = (scene, camera, onRenderFcts, renderer, qrcodePatt) => {
+const initARJS = (scene, camera, onRenderFcts, renderer, qrcodePatt, isSimulation) => {
 
   ////////////////////////////////////////////////////////////////////////////////
   //          handle arToolkitSource
   ////////////////////////////////////////////////////////////////////////////////
-  var arToolkitSource = new THREEx.ArToolkitSource({
-    // to read from the webcam
-    sourceType : 'webcam'
-  });
+  // var arToolkitSource = new THREEx.ArToolkitSource({
+  //   // to read from the webcam
+  //   sourceType : 'webcam'
+  // });
+
+  const sourceType = {};
+  if (isSimulation) {
+    sourceType.sourceType = 'image';
+    sourceType.sourceUrl = '/hiro_sample.png';
+  } else {
+    sourceType.sourceType = 'webcam';
+  }
+
+  var arToolkitSource = new THREEx.ArToolkitSource(sourceType);
 
   arToolkitSource.init(function onReady(){
     onResize();
@@ -62,7 +72,7 @@ const initARJS = (scene, camera, onRenderFcts, renderer, qrcodePatt) => {
     //type: 'barcode',
     //barcodeValue: 'https://magicstickr.github.io/video-base/index.html',
     type : 'pattern',
-    patternUrl: qrcodePatt
+    patternUrl: isSimulation ? '/patt.hiro' : qrcodePatt
   });
 
   // build a smoothedControls
