@@ -15,8 +15,8 @@ const initARJS = (scene, camera, onRenderFcts, renderer, qrcodePatt, isSimulatio
 
   const sourceType = {};
   if (isSimulation) {
-    sourceType.sourceType = 'image';
-    sourceType.sourceUrl = '/hiro_sample.png';
+    sourceType.sourceType = 'video';
+    sourceType.sourceUrl = '/hiro.mov';
   } else {
     sourceType.sourceType = 'webcam';
   }
