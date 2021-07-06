@@ -22,6 +22,7 @@ class HologramsController < ApplicationController
   def show
     @hologram = Hologram.find(params['id'])
     @marker_png = create_marker(@hologram.marker.qrcode)
+    @is_image = is_image?(@hologram)
   end
 
   def live

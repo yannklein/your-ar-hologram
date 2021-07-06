@@ -78,7 +78,9 @@
     object-fit: cover;
     object-position: 50% 0%;
     background-color: black;
-    opacity: 0.5;
+    box-shadow: 0 10px 15px -2px rgba(0,0,0,0.5); 
+    margin-bottom: 16px;
+    // opacity: 0.5;
   }
 }
 
