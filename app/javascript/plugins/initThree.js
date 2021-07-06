@@ -243,7 +243,7 @@ const initThree = (holoVideo, qrcodePatt, isSimulation = false) => {
     addHoloPhoto(all)
   } else {
     // the asset is a video
-    addHoloVideo(all, onRenderFcts);
+    addHoloVideo(all, onRenderFcts, window.holoVideo);
   }
 
   // add logo floor
