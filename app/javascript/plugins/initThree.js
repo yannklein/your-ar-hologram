@@ -136,33 +136,39 @@ const addHoloPhoto = async (subScene) => {
   
   const positions = [];
   const colors = [];
-  const color = new THREE.Color();
   const spread = 1;
-  const depthSpread = 1;
+  const depthSpread = 2.5;
   const imageAspect = rgbData.width / rgbData.height;
-  
+  // Size of the pixel forming the hologram point cloud
+  const holoPixelSize = 0.017;
+  // Minimal hologram depth to be displayed
+  const minDepth = 0.35;
+
   for (let y = 0; y < down; ++y) {
     const v = y / (down - 1);
     for (let x = 0; x < across; ++x) {
       const u = x / (across - 1);
       const rgb = getPixel(rgbData, u, v);
       const depth = getPixel(depthData, u, v)[0];
-      
-      positions.push( 
-         (u *  2 - 1) * spread * imageAspect, 
-         (v * -2 + 1) * spread, 
-         depth * depthSpread,
-      );
-      colors.push( ...rgb.slice(0,3) );
+      // console.log(depth);
+      // 
+      if (depth > minDepth) {
+        positions.push( 
+           (u *  2 - 1) * spread * imageAspect, 
+           (v * -2 + 1) * spread, 
+           depth * depthSpread,
+        );
+        colors.push( ...rgb.slice(0,3) );
+      }
     }
   }
   
   holoGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ) );
   holoGeometry.addAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
   holoGeometry.computeBoundingSphere();
-  const material = new THREE.PointsMaterial( { size: 0.01, vertexColors: THREE.VertexColors } );
+  const material = new THREE.PointsMaterial( { size: holoPixelSize, vertexColors: THREE.VertexColors } );
   // holoGeometry.scale(0.5,0.5,0.5);
-  holoGeometry.translate(0,holoGeometry.boundingSphere.radius,0);
+  holoGeometry.translate(0,holoGeometry.boundingSphere.radius, -2);
   // holoGeometry.rotateY(Math.PI);
 	const points = new THREE.Points( holoGeometry, material );
 
