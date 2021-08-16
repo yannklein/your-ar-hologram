@@ -175,6 +175,98 @@ const addHoloPhoto = async (subScene) => {
   subScene.add( points );
 };
 
+const addHoloMeshPhoto = async (subScene) => {
+
+  const images = await Promise.all([
+    loadImage(window.holoVideo),  // RGB
+    loadImage(window.holoDepth),  // Depth
+  ]);
+
+  const data = images.map(getImageData);
+  const rgbData = data[0];
+  const depthData = data[1];
+  
+  const skip = 1;
+  const across = Math.ceil(rgbData.width / skip);
+  const down = Math.ceil(rgbData.height / skip);
+  
+  const positions = [];
+  const colors = [];
+  const indices = [];
+  const spread = 1;
+  const depthSpread = 2.5;
+  const imageAspect = rgbData.width / rgbData.height;
+  // Minimal hologram depth to be displayed
+  const minDepth = 0.35;
+  
+  // build the vertice positions and associated colors
+  for (let y = 0; y <= down; ++y) {
+    const v = y / (down - 1);
+    for (let x = 0; x <= across; ++x) {
+      const u = x / (across - 1);
+      const rgb = getPixel(rgbData, u, v);
+      const depth = getPixel(depthData, u, v)[0];
+      positions.push(
+        (u *  2 - 1) * spread * imageAspect, 
+        (v * -2 + 1) * spread, 
+        depth * depthSpread
+        );
+        colors.push( ...rgb.slice(0,3) 
+      );
+    }
+  } 
+  // build faces
+  for (let y = 0; y <= down; ++y) {
+    for (let x = 0; x <= across; ++x) {
+      // generate two faces (triangles) per iteration
+      //
+      // [0]------[1]
+      //  | \      |
+      //  |   \    | 
+      //  |     \  |
+      //  |       \|
+      // [2]------[3]
+      //
+      const curVertice = [
+        x          + y         * (across + 1),
+        ( x + 1 )  + y         * (across + 1),
+        x          + ( y + 1)  * (across + 1),
+        ( x + 1 )  + ( y + 1)  * (across + 1),
+      ];
+      
+      const pointDepth = (pt) => positions[pt * 3 + 2];
+      const depthDist = (pt1, pt2) => Math.abs(pointDepth(pt1) - pointDepth(pt2));
+      // check if each face point is below depth threshold, don't show face if yes
+      const isOverMinDepth = (vertice) =>  vertice.filter(ver => pointDepth(ver) < minDepth * depthSpread).length == 0;
+      // Max depth dist between points to consider it as a valid face
+      const maxPtSpread = 0.1;
+      const isUnderMaxSpread = (vertice) => {
+        return vertice.filter((vertex, index) => {
+          const nextVertex = vertice[index + 1] || vertice[0];
+          return (depthDist(vertex, nextVertex) > maxPtSpread);
+        }).length == 0;
+      } 
+      if ( isOverMinDepth(curVertice) 
+        && isUnderMaxSpread(curVertice)) {
+        indices.push( curVertice[0], curVertice[1], curVertice[3] ); // face one
+        indices.push( curVertice[0], curVertice[2], curVertice[3] ); // face two
+      }
+    }
+  }
+  const holoGeometry = new THREE.BufferGeometry();
+  holoGeometry.setIndex( indices );
+  holoGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ) );
+  holoGeometry.addAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
+  holoGeometry.computeBoundingSphere();
+  const material = new THREE.MeshBasicMaterial({ 
+    vertexColors: THREE.VertexColors, 
+    side: THREE.DoubleSide 
+  });
+  holoGeometry.translate(0,holoGeometry.boundingSphere.radius, -2);
+	const points = new THREE.Mesh( holoGeometry, material );
+  subScene.add( points );
+};
+
 const initThree = (holoVideo, qrcodePatt, isSimulation = false) => {
   //Error if not WebGL compatible
   // if ( WEBGL.isWebGLAvailable() === false ) {
@@ -227,7 +319,7 @@ const initThree = (holoVideo, qrcodePatt, isSimulation = false) => {
 
   if (window.holoDepth) {
     // the asset is a iPhone portrait image
-    addHoloPhoto(all)
+    addHoloMeshPhoto(all)
   } else {
     // the asset is a video
     addHoloVideo(all, onRenderFcts, window.holoVideo);
