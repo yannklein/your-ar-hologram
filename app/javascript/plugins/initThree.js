@@ -144,6 +144,7 @@ const addHoloPhoto = async (subScene) => {
   // Minimal hologram depth to be displayed
   const minDepth = 0.35;
 
+  // build the poinbt cloud
   for (let y = 0; y < down; ++y) {
     const v = y / (down - 1);
     for (let x = 0; x < across; ++x) {
@@ -171,27 +172,7 @@ const addHoloPhoto = async (subScene) => {
   holoGeometry.translate(0,holoGeometry.boundingSphere.radius, -2);
   // holoGeometry.rotateY(Math.PI);
 	const points = new THREE.Points( holoGeometry, material );
-
-  // const geo = new THREE.BoxGeometry( 1, 1, 1 );
-  // const mat = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-  // const cube = new THREE.Mesh( geo, mat );
-  // cube.position.y = 2;
-  // subScene.add( cube );
   subScene.add( points );
-  
-  // const videoMaterial = new ChromaKeyMaterial(holoVideo, 1280, 720, parseInt(window.holoBackground.slice(1),16));
-  // videoElement = window.video;
-  // // green: 0xd432
-  // // white: 0xffff
-  // const videoPlane = new THREE.Mesh( holoGeometry, videoMaterial );
-  // videoPlane.scale.multiplyScalar(1);
-  // videoPlane.position.y = ysize/2;
-  // scene.add( videoPlane );
-  // window.videoPlane = videoPlane;
-
-  // onRenderFcts.push(function(delta, now){
-  //   videoMaterial.update();
-  // })
 };
 
 const initThree = (holoVideo, qrcodePatt, isSimulation = false) => {
