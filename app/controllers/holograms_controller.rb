@@ -44,10 +44,13 @@ class HologramsController < ApplicationController
         @hologram.update(depth_img: create_depth_img(@hologram))
         redirect_to hologram_path(@hologram)
       else # if video
-        redirect_to color_pick_path(@hologram)
+        nobg_video_url = BackgroundRemoval.new(@hologram.video.metadata["secure_url"]).remove_bg
+        file = URI.open(nobg_video_url)
+        @hologram.update( video: file)
+        # redirect_to color_pick_path(@hologram)
+        redirect_to hologram_path(@hologram)
       end
     else
-      raise
       render :new
     end
   end
@@ -89,7 +92,8 @@ class HologramsController < ApplicationController
   private
 
   def create_depth_img(hologram)
-    img_path = hologram.video.path
+    # img_path = hologram.video.path # for some reasons video.path is not a thing anymore :(
+    img_path = hologram.video.metadata["secure_url"]
     depth_img_url = Rails.root.join('public/depth_img.jpg')
     # depth_img_data = MiniExiftool.new('-b', img_path)
     system "exiftool -b -MPImage2 #{img_path} > #{depth_img_url}"

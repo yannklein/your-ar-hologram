@@ -48,8 +48,8 @@ const ChromaKeyMaterial = function (url, width, height, keyColor) {
     {
       vec3 colorToRemove = vec3(${keyColorObject.r}, ${keyColorObject.g}, ${keyColorObject.b});
       vec3 fragmentColor = texture2D( texture, vUv ).rgb;
-      float thresholdColor = 0.2;
-      float thresholdTone = 0.1;
+      float thresholdColor = 0.6;
+      float thresholdTone = 0.6;
 
       float diffR = abs(colorToRemove[0] - fragmentColor.r);
       float diffG = abs(colorToRemove[0] - fragmentColor.r);

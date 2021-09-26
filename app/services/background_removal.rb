@@ -3,7 +3,7 @@ require 'net/http'
 
 class BackgroundRemoval
   def initialize(url)
-    @url = url
+    @video_url = url
     @api_key = ENV['BG_REM_API_KEY']
     @api_url = "https://bgrem.deelvin.com/api"
   end
@@ -15,8 +15,8 @@ class BackgroundRemoval
     https.use_ssl = true
 
     # Add extension to tempfile
-    video = URI.open(@url)
-    video_with_ext = "#{video.path}.#{@url.split(".").last}"
+    video = URI.open(@video_url)
+    video_with_ext = "#{video.path}.#{@video_url.split(".").last}"
     FileUtils.mv(video.path, video_with_ext)
     video = open(video_with_ext)
 
