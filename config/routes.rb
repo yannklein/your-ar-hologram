@@ -8,8 +8,6 @@ Rails.application.routes.draw do
   get 'holograms/:id/colorpick', to: 'holograms#color_pick', as: :color_pick
   patch 'holograms/:id/colorsave', to: 'holograms#color_save', as: :color_save
 
-  resources :markers, only: [:index, :new, :create, :edit, :update]
-
   devise_for :users, :controllers => {:registrations => "registrations"}
   get ':user/', to: 'users#show', as: :user
 
