@@ -2,9 +2,14 @@
   <%= f.error_notification %>
   <%= f.input :title, label: 'Choose a great title:', required: true %>
   <%= f.input :description, label: 'Take a breath and go for a cool description:', as: :text, :input_html => {:style => 'width: 100%', :rows => 5 }, required: true  %>
-  <%= f.association :marker, as: :hidden %>
   <%= f.input :video, label: 'Now upload your video or your iPhone portrait picture (normal pics won\'t work!) 😎👇', required: true, hint: "Take your video with a homogeneous background. Green background's best! 💚"  %>
+  <%= f.input :marker_pattern, as: :hidden %>
+  <%= f.input :qr_code, as: :hidden, value: @qr_code %>
   <%= f.button :submit, value: 'Brew your hologram', class: 'btn btn-primary' %>
 <% end %>
 
 <p><em>Ehm.. disclaimer 👉 The hologam loading takes a while... please be patient, we're working on it!</em></p>
+
+<script>
+  window.QRForPattern = `<%= @qrcode_png.squish %>`;
+</script>

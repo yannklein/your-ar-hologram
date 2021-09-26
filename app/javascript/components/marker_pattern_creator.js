@@ -52,7 +52,7 @@ const encodeImage = (image) => {
   // console.log(patternFileString);
   // window.pattern = patternFileString;
   // debugger
-  document.querySelector("#marker_pattern").value = patternFileString;
+  document.querySelector("#hologram_marker_pattern").value = patternFileString;
 }
 
 const initMarkerPatternCreator = (imageURL) => {

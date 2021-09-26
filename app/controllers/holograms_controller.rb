@@ -21,49 +21,35 @@ class HologramsController < ApplicationController
 
   def show
     @hologram = Hologram.find(params['id'])
-    @marker_png = create_marker(@hologram.marker.qrcode)
-    @is_image = is_image?(@hologram)
+    @marker_png = create_marker(@hologram.qr_code)
   end
 
   def live
     @hologram = Hologram.find(params['id'])
     @videoUrl = create_cloudinary_url(@hologram.video)
-    @depthUrl = @hologram.depth_img.blank? ? nil : create_cloudinary_url(@hologram.depth_img)
+    @depthUrl = @hologram.photo? ? create_cloudinary_url(@hologram.depth_img) : nil
   end
 
   def new
-    @hologram = Hologram.new
-    @hologram.marker = Marker.find(params[:marker_id])
+    @qr_code = create_raw_qrcode(Hologram.next_id)
+    @hologram = Hologram.new(qr_code: @qr_code)
+    @qrcode_png = to_png(@qr_code)
   end
-
+  
   def create
-    # Get the previously created hologram
-    @hologram = Hologram.find_by(marker_id: hologram_params[:marker_id])
-    @hologram.assign_attributes(hologram_params)
-    # if video is actually a iPhone portrait image try to create the depth
-    if is_image?(@hologram)
-      img_path = @hologram.video.path
-      depth_img_url = Rails.root.join('public/depth_img.jpg')
-      # depth_img_data = MiniExiftool.new('-b', img_path)
-      system "exiftool -b -MPImage2 #{img_path} > #{depth_img_url}"
-      src_file = File.new(depth_img_url)
-      @hologram.depth_img = src_file
-    end
-    
-    # @hologram.user = current_user
+    @hologram = Hologram.new(hologram_params)
+    @hologram.user = current_user
     if @hologram.save
-      if is_image?(@hologram)
+      if @hologram.photo? # if holo is photo
+        @hologram.update(depth_img: create_depth_img(@hologram))
         redirect_to hologram_path(@hologram)
-      else
+      else # if video
         redirect_to color_pick_path(@hologram)
       end
     else
+      raise
       render :new
     end
-  end
-
-  def is_image?(hologram)
-    ['jpg', 'jpeg', 'png'].include?(hologram.video.format)
   end
 
   def color_pick
@@ -85,7 +71,6 @@ class HologramsController < ApplicationController
 
   def update
     @hologram = Hologram.find(params[:id])
-    @hologram.marker = Marker.find(params[:id])
     @hologram.update(hologram_params)
     redirect_to hologram_path(@hologram)
   end
@@ -103,9 +88,30 @@ class HologramsController < ApplicationController
 
   private
 
+  def create_depth_img(hologram)
+    img_path = hologram.video.path
+    depth_img_url = Rails.root.join('public/depth_img.jpg')
+    # depth_img_data = MiniExiftool.new('-b', img_path)
+    system "exiftool -b -MPImage2 #{img_path} > #{depth_img_url}"
+    File.new(depth_img_url)
+  end
+
   def create_cloudinary_url(media)
     baseURL = "https://res.cloudinary.com/yanninthesky/";
     "#{baseURL}#{media.identifier.split(/\//)[0..-3].concat(["h_720", media.identifier.split(/\//)[-1]]).join("/")}"
+  end
+
+  def create_raw_qrcode(new_holo_id)
+    # Produce the hologram live url
+    live_url = "#{root_url}/holograms/#{new_holo_id}/live"
+    live_url = live_url.sub("http:", "https:")
+    # Create the QR code PGN image
+    barcode = Barby::QrCode.new(live_url, level: :q, size: 5)
+    Base64.encode64(barcode.to_png(xdim: 5))
+  end
+
+  def to_png(raw_data)
+    "data:image/png;base64,#{raw_data}"
   end
 
   def create_marker(raw_qrcode)
@@ -125,6 +131,6 @@ class HologramsController < ApplicationController
   end
 
   def hologram_params
-    params.require(:hologram).permit(:title, :description, :video, :qrcode, :background, :marker_id)
+    params.require(:hologram).permit(:title, :description, :video, :background, :qr_code, :marker_pattern)
   end
 end

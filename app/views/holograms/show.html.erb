@@ -51,7 +51,7 @@
       </div>
     </div>
     <div class="hologram-description">
-      <% if @is_image %>
+      <% if @hologram.photo? %>
         <%= cl_image_tag @hologram.video, :width=>720, :height=>606, :gravity => :face %>
       <% else %>
         <%= cl_image_tag @hologram.video, :format=>"gif", :video_sampling=>"1.1s", :delay=>"100", :effect=>"loop", :resource_type=>"video", :width=>720, :height=>606, :gravity => :face %>
