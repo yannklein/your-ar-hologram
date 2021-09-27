@@ -56,8 +56,8 @@ class BackgroundRemoval
     https.use_ssl = true
 
     request = Net::HTTP::Post.new(url)
-    # request["Authorization"] = @api_key
-    form_data = [['job', job_id ],['task_type', 'video'],['plan', 'start'],['bg_id', 'a899eb98-d66f-4517-a217-9602ea91f999']]
+    request["Authorization"] = @api_key
+    form_data = [['job', job_id ],['task_type', 'video'],['plan', 'creator'],['bg_id', 'a899eb98-d66f-4517-a217-9602ea91f999']]
     request.set_form form_data, 'multipart/form-data'
     response = https.request(request)
     content = JSON.parse(response.read_body)
