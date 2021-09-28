@@ -42,14 +42,11 @@ class HologramsController < ApplicationController
     if @hologram.save
       if @hologram.photo? # if holo is photo
         @hologram.update(depth_img: create_depth_img(@hologram))
-        redirect_to hologram_path(@hologram)
       else # if video
-        nobg_video_url = BackgroundRemoval.new(@hologram.video.metadata["secure_url"]).remove_bg
-        file = URI.open(nobg_video_url)
-        @hologram.update( video: file)
+        VideoLoadingJob.perform_later(@hologram, @hologram.video.metadata["secure_url"])
         # redirect_to color_pick_path(@hologram)
-        redirect_to hologram_path(@hologram)
       end
+      redirect_to hologram_path(@hologram)
     else
       render :new
     end
