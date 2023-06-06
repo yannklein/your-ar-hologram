@@ -84,6 +84,8 @@ class HologramsController < ApplicationController
 
   def edit
     @hologram = Hologram.find(params[:id])
+    @qr_code = create_raw_qrcode(@hologram.id)
+    @qrcode_png = to_png(@qr_code)
   end
 
   def update
