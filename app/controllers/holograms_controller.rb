@@ -35,6 +35,14 @@ class HologramsController < ApplicationController
     @hologram = Hologram.new(qr_code: @qr_code)
     @qrcode_png = to_png(@qr_code)
   end
+
+  def reset_qr_code
+    @hologram = Hologram.find(params['id'])
+    @qr_code = create_raw_qrcode(@hologram.id)
+    if @hologram.update(qr_code: @qr_code)
+      render "QR code reset for hologram id: #{@hologram.id}"
+    end
+  end
   
   def create
     @hologram = Hologram.new(hologram_params)
