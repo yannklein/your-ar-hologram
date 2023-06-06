@@ -40,7 +40,7 @@ class HologramsController < ApplicationController
     @hologram = Hologram.find(params['id'])
     @qr_code = create_raw_qrcode(@hologram.id)
     if @hologram.update(qr_code: @qr_code)
-      render "QR code reset for hologram id: #{@hologram.id}"
+      redirect_to hologram_path(@hologram)
     end
   end
 
@@ -50,7 +50,7 @@ class HologramsController < ApplicationController
       qr_code = create_raw_qrcode(holo.id)
       holo.update(qr_code: qr_code)
     end
-    render "All QR code reset"
+    redirect_to holograms_path
   end
   
   def create
