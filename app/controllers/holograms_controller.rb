@@ -43,6 +43,15 @@ class HologramsController < ApplicationController
       render "QR code reset for hologram id: #{@hologram.id}"
     end
   end
+
+  def reset_qr_code_all
+    holograms = Hologram.all
+    holograms.each do |holo|
+      qr_code = create_raw_qrcode(holo.id)
+      holo.update(qr_code: qr_code)
+    end
+    render "All QR code reset"
+  end
   
   def create
     @hologram = Hologram.new(hologram_params)
