@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   root to: 'holograms#index'
 
+  get 'holograms/reset_qr_code_all', to: 'holograms#reset_qr_code_all', as: :reset_qr_code_all
   resources :holograms
   get 'welcome', to: 'holograms#welcome', as: :welcome
-  get 'holograms/reset_qr_code_all', to: 'holograms#reset_qr_code_all', as: :reset_qr_code_all
   get 'holograms/:id/live', to: 'holograms#live', as: :live
   get 'holograms/:id/pattern.:format' => 'holograms#pattern'
   get 'holograms/:id/colorpick', to: 'holograms#color_pick', as: :color_pick
