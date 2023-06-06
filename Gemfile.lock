@@ -223,11 +223,10 @@ GEM
       sprockets-rails
       tilt
     semantic_range (3.0.0)
-    sidekiq (7.1.1)
-      concurrent-ruby (< 2)
-      connection_pool (>= 2.3.0)
-      rack (>= 2.2.4)
-      redis-client (>= 0.14.0)
+    sidekiq (6.5.5)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.5.0)
     sidekiq-failures (1.0.4)
       sidekiq (>= 4.0.0)
     simple_form (5.2.0)
@@ -296,7 +295,7 @@ DEPENDENCIES
   rmagick
   rqrcode (~> 0.4.2)
   sassc-rails
-  sidekiq
+  sidekiq (~> 6)
   sidekiq-failures (~> 1.0)
   simple_form
   spring

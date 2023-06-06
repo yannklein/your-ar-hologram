@@ -23,7 +23,7 @@ gem 'rqrcode','~> 0.4.2'
 gem 'chunky_png'
 gem 'rmagick'
 
-gem 'sidekiq'
+gem 'sidekiq', '~> 6'
 gem 'sidekiq-failures', '~> 1.0'
 
 group :development do
